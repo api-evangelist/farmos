@@ -1,0 +1,54 @@
+name: farmOS Rate Limits
+description: farmOS is self-hosted open-source software and does not impose platform-level
+  rate limits on its JSON:API. Rate limiting behavior depends on the hosting infrastructure,
+  web server configuration, and any Drupal modules or reverse proxies the operator
+  chooses to deploy. Managed hosting via Farmier may have infrastructure-level throttling
+  but no published API rate limits.
+version: '0.1'
+url: https://farmos.org/development/api/
+rateLimits:
+  - name: Self-Hosted Default
+    description: farmOS core does not enforce API rate limits. Operators are responsible
+      for configuring rate limiting at the web server (e.g., nginx, Apache), reverse
+      proxy (e.g., Traefik, Cloudflare), or Drupal module layer if needed.
+    scope: global
+    limit: null
+    window: null
+    enforcement: none
+    notes:
+      - No built-in rate limiting in farmOS core
+      - Web server configuration controls request throughput
+      - Drupal's flood control module can be used for login attempt limiting
+      - Recommended to implement rate limiting at infrastructure level for production
+        deployments
+
+  - name: OAuth Token Endpoint
+    description: Drupal's flood control may apply limits to token generation endpoints
+      to prevent brute-force attacks on authentication. Specific thresholds depend
+      on server configuration.
+    scope: per-ip
+    endpoint: /oauth/token
+    limit: null
+    window: null
+    enforcement: configurable
+    notes:
+      - Drupal flood control applies to login and token endpoints
+      - Default Drupal flood limits apply to repeated failed authentication
+      - Operators can configure custom flood thresholds
+
+authentication:
+  type: OAuth2
+  grantTypes:
+    - Authorization Code
+    - Password Credentials (legacy, 1st party only)
+    - Client Credentials
+    - Refresh Token
+  tokenEndpoint: /oauth/token
+  scopes:
+    - name: farm_manager
+      description: Full management access to farm data
+    - name: farm_worker
+      description: Worker-level access to farm data
+    - name: farm_viewer
+      description: Read-only access to farm data
+  bearerTokenHeader: 'Authorization: Bearer {access_token}'

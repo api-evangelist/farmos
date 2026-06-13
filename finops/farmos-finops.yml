@@ -1,0 +1,103 @@
+name: farmOS FinOps Framework
+description: FinOps considerations for farmOS API integrations. farmOS is open-source
+  software with zero licensing costs for self-hosted deployments. Cost drivers are
+  infrastructure (hosting), storage, and optional managed hosting subscriptions via
+  Farmier. API usage itself carries no per-call charges.
+version: '1.0'
+framework: FinOps Framework 1.0 FOCUS-aligned
+url: https://farmos.org/hosting/
+
+costModel:
+  type: open-source-self-hosted
+  apiCallCost: 0
+  licensingCost: 0
+  notes: farmOS is licensed under GNU General Public License. There are no per-call
+    API charges, no licensing fees, and no usage-based billing for the software itself.
+
+deploymentOptions:
+  - name: Self-Hosted
+    costType: infrastructure-only
+    directCost: 0
+    infrastructureCost: variable
+    description: Operator pays only for their own hosting infrastructure (VPS, cloud
+      VM, on-premise server). No software licensing or API call costs.
+    costDrivers:
+      - Web server hosting (VPS, cloud VM, bare metal)
+      - Database storage
+      - Bandwidth and egress
+      - SSL certificate (free via Let's Encrypt)
+      - Backup storage
+      - Engineering time for installation and maintenance
+    estimatedMonthlyRange:
+      low: 5
+      high: 50
+      currency: USD
+      notes: Depends on cloud provider and instance size. A basic farmOS instance
+        can run on a $5-10/month VPS.
+
+  - name: Farmier Managed Hosting
+    costType: subscription
+    directCost: 75
+    currency: USD
+    billingCycle: annually
+    description: Managed hosting service operated by Farmier (farmier.com), founded
+      by the farmOS creator. Subscriptions support ongoing farmOS development.
+    costDrivers:
+      - Annual subscription fee ($75/year base)
+      - Storage overage ($5 per 5 GB blocks beyond 1 GB base, billed monthly on
+        max usage)
+    storageOverage:
+      baseIncluded: 1
+      unit: GB
+      overagePrice: 5
+      overageBlock: 5
+      overageUnit: GB
+      overageBillingCycle: monthly
+    estimatedAnnualRange:
+      low: 75
+      high: 200
+      currency: USD
+      notes: Depends on storage usage. Most small farms stay within base 1 GB.
+
+optimization:
+  recommendations:
+    - name: Self-Host for Zero API Cost
+      description: Self-hosting farmOS on a low-cost VPS eliminates all software
+        costs. A $5-10/month VPS is sufficient for most single-farm deployments.
+      savingsPotential: high
+      effort: medium
+
+    - name: Use Farmier for Operational Efficiency
+      description: For farms without technical staff, Farmier's $75/year managed
+        hosting offloads maintenance, backups, and updates, reducing total cost of
+        ownership despite the subscription fee.
+      savingsPotential: medium
+      effort: low
+
+    - name: Monitor Storage Growth
+      description: On Farmier, storage overages at $5 per 5 GB can accumulate with
+        photo-heavy record keeping. Compress images before upload and archive old
+        media to control storage costs.
+      savingsPotential: medium
+      effort: low
+
+    - name: OAuth Client Credentials for Automation
+      description: Use Client Credentials grant for server-to-server integrations
+        and automation scripts to avoid interactive OAuth flows. Reduces engineering
+        complexity and maintenance overhead.
+      savingsPotential: low
+      effort: low
+
+    - name: Local farmOS.py or farmOS.js for Batch Operations
+      description: Use official SDKs for bulk data imports/exports rather than custom
+        HTTP clients. Reduces development time and leverages maintained libraries
+        with built-in retry and error handling.
+      savingsPotential: medium
+      effort: low
+
+support:
+  communityForum: https://farmos.discourse.group/
+  openCollective: https://opencollective.com/farmos
+  notes: farmOS development is supported by community donations via Open Collective
+    and Farmier hosting subscriptions. No paid enterprise support tiers are currently
+    offered by the core project.

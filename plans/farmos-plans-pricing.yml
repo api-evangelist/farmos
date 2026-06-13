@@ -1,0 +1,103 @@
+name: farmOS Plans and Pricing
+description: farmOS is open-source software available for self-hosting at no cost.
+  Managed hosting is available through Farmier, a subscription hosting service founded
+  by the creator of farmOS. Subscriptions support continued farmOS development.
+version: '0.1'
+url: https://farmier.com/pricing/
+plans:
+  - name: Self-Hosted
+    description: Download and run farmOS on your own web server at no cost. Full
+      access to all features with complete control over your data and infrastructure.
+      Requires technical knowledge to install and maintain.
+    price: 0
+    currency: USD
+    billingCycle: free
+    features:
+      - Unlimited acres
+      - Unlimited users
+      - All farmOS modules
+      - JSON:API access
+      - Farm mapping
+      - Task assignment
+      - Inventory management
+      - Full data ownership
+      - Self-managed updates
+    support:
+      - Community forums
+      - GitHub issues
+      - Documentation
+    limitations:
+      - Requires self-managed hosting infrastructure
+      - Manual updates and backups
+
+  - name: Farmier Trial
+    description: Free 30-day trial of Farmier managed farmOS hosting. Full access
+      to all standard farmOS modules with no credit card required to start.
+    price: 0
+    currency: USD
+    billingCycle: once
+    trialDays: 30
+    features:
+      - Unlimited acres
+      - Unlimited users
+      - All standard farmOS modules
+      - JSON:API access
+      - Farm mapping
+      - SSL encryption
+    support:
+      - Community support
+    limitations:
+      - 30-day trial period only
+      - No file uploads
+      - No automatic backups
+
+  - name: Farmier Standard
+    description: Managed farmOS hosting with automatic updates, backups, and SSL.
+      Ideal for farms that want a hassle-free hosted solution with support from the
+      farmOS creator's team.
+    price: 75
+    currency: USD
+    billingCycle: annually
+    features:
+      - Unlimited acres
+      - Unlimited users
+      - All standard farmOS modules
+      - JSON:API access
+      - Farm mapping
+      - Task assignment
+      - Inventory management
+      - Photo and file uploads
+      - Automatic backups
+      - Automatic upgrades
+      - SSL encryption
+      - Private files
+      - 1 GB base storage included
+    storage:
+      base: 1
+      unit: GB
+      additionalPricePerBlock: 5
+      additionalBlockSize: 5
+      additionalBlockUnit: GB
+      additionalBillingCycle: monthly
+    support:
+      - Community support
+
+  - name: Farmier Custom
+    description: Custom hosting and development solutions for organizations and groups
+      with specialized requirements. Includes priority support, custom module development,
+      and multiple farm instances.
+    price: null
+    currency: USD
+    billingCycle: custom
+    contactForPricing: true
+    contactUrl: https://farmier.com/
+    features:
+      - Everything in Standard
+      - Multiple farmOS instances
+      - Custom data imports and exports
+      - Custom module development
+      - Priority support
+      - Custom storage options
+    support:
+      - Priority support
+      - Custom SLA available

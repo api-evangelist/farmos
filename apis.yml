@@ -1,0 +1,83 @@
+aid: farmos
+name: farmOS
+description: Open-source farm management and record-keeping system with a JSON:API-based
+  REST API for managing assets, logs, plans, and farm records. Supports self-hosted
+  deployments and managed hosting via Farmier. Authentication uses OAuth2 with Authorization
+  Code, Password Credentials, and Client Credentials grant types.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/farmos/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Agriculture
+  - Farm Management
+  - Open Source
+  - JSON:API
+  - Record Keeping
+  - Self-Hosted
+  - Drupal
+apis:
+  - aid: farmos:farmos-api
+    name: farmOS JSON:API
+    description: The farmOS JSON:API provides access to farm assets, logs, plans,
+      and records. Follows the JSON:API specification with UUID-based resource identifiers.
+      The root endpoint at /api returns server metadata and available resource types.
+      Resource endpoints follow the pattern /api/[entity-type]/[bundle].
+    humanURL: https://farmos.org/development/api/
+    baseURL: https://{farmOS-host}/api
+    tags:
+      - Agriculture
+      - Farm Management
+      - JSON:API
+      - Assets
+      - Logs
+      - Plans
+    properties:
+      - type: Documentation
+        url: https://farmos.org/development/api/
+      - type: Authentication
+        url: https://farmos.org/development/api/authentication/
+      - type: APIChanges
+        url: https://farmos.org/development/api/changes/
+      - type: JavaScriptSDK
+        url: https://farmos.org/development/farmos-js/
+      - type: PythonSDK
+        url: https://farmos.org/development/farmos-py/
+      - type: GitHubRepository
+        url: https://github.com/farmOS/farmOS
+    contact:
+      - FN: farmOS Community
+        url: https://farmos.org/community/
+        email: ''
+common:
+  - type: Website
+    url: https://farmos.org/
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: GitHubOrg
+    url: https://github.com/farmOS
+  - type: Blog
+    url: https://farmos.org/blog/
+  - type: Pricing
+    url: https://farmier.com/pricing/
+  - type: X
+    url: https://twitter.com/farmOSorg
+  - type: Forum
+    url: https://farmos.discourse.group/
+  - type: OpenCollective
+    url: https://opencollective.com/farmos
+  - type: JavaScriptSDK
+    url: https://github.com/farmOS/farmOS.js
+  - type: PythonSDK
+    url: https://github.com/farmOS/farmOS.py
+  - type: Plans
+    url: plans/farmos-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/farmos-rate-limits.yml
+  - type: FinOps
+    url: finops/farmos-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
