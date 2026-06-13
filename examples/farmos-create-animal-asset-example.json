@@ -1,0 +1,110 @@
+{
+  "title": "Create an Animal Asset",
+  "description": "Example request body to create an animal asset representing a dairy cow.",
+  "request": {
+    "method": "POST",
+    "url": "/api/asset/animal",
+    "headers": {
+      "Content-Type": "application/vnd.api+json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "data": {
+        "type": "asset--animal",
+        "attributes": {
+          "name": "Bessie",
+          "status": "active",
+          "nickname": ["B7", "Old Bessie"],
+          "sex": "F",
+          "is_sterile": false,
+          "birthdate": 1577836800,
+          "notes": {
+            "value": "Top milk producer in the herd. Watch for signs of lameness.",
+            "format": "default"
+          },
+          "id_tag": [
+            {
+              "id": "US840003123456789",
+              "type": "ear_tag",
+              "location": "left"
+            }
+          ],
+          "is_location": false,
+          "is_fixed": false
+        },
+        "relationships": {
+          "animal_type": {
+            "data": {
+              "type": "taxonomy_term--animal_type",
+              "id": "f6a7b8c9-d0e1-2345-fab2-456789012345"
+            }
+          },
+          "parent": {
+            "data": []
+          }
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "asset--animal",
+        "id": "a7b8c9d0-e1f2-3456-abc3-567890123456",
+        "attributes": {
+          "drupal_internal__id": 17,
+          "name": "Bessie",
+          "status": "active",
+          "nickname": ["B7", "Old Bessie"],
+          "sex": "F",
+          "is_sterile": false,
+          "birthdate": 1577836800,
+          "notes": {
+            "value": "Top milk producer in the herd. Watch for signs of lameness.",
+            "format": "default"
+          },
+          "id_tag": [
+            {
+              "id": "US840003123456789",
+              "type": "ear_tag",
+              "location": "left"
+            }
+          ],
+          "is_location": false,
+          "is_fixed": false,
+          "intrinsic_geometry": null,
+          "geometry": null,
+          "created": 1720001500,
+          "changed": 1720001500
+        },
+        "relationships": {
+          "animal_type": {
+            "data": {
+              "type": "taxonomy_term--animal_type",
+              "id": "f6a7b8c9-d0e1-2345-fab2-456789012345"
+            }
+          },
+          "parent": {
+            "data": []
+          },
+          "location": {
+            "data": []
+          },
+          "image": {
+            "data": []
+          },
+          "file": {
+            "data": []
+          }
+        },
+        "links": {
+          "self": "/api/asset/animal/a7b8c9d0-e1f2-3456-abc3-567890123456"
+        }
+      }
+    }
+  }
+}

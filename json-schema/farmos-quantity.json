@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/farmos/main/json-schema/farmos-quantity.json",
+  "title": "farmOS Quantity",
+  "description": "Represents a measurement quantity associated with a farmOS log. Quantities record numeric measurements with units (e.g., 50 lbs of feed, 2 acres planted).",
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["type", "attributes"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "JSON:API resource type",
+          "enum": [
+            "quantity--standard",
+            "quantity--material",
+            "quantity--test"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "measure": {
+              "type": "string",
+              "description": "The type of measurement being recorded",
+              "enum": [
+                "weight",
+                "volume",
+                "count",
+                "length",
+                "area",
+                "time",
+                "temperature",
+                "pressure",
+                "water_content",
+                "rating",
+                "ratio"
+              ]
+            },
+            "value": {
+              "type": ["object", "null"],
+              "description": "The numeric value of the measurement",
+              "properties": {
+                "numerator": {
+                  "type": "integer",
+                  "description": "Numerator of the rational number representation"
+                },
+                "denominator": {
+                  "type": "integer",
+                  "description": "Denominator of the rational number representation",
+                  "default": 1
+                },
+                "decimal": {
+                  "type": "string",
+                  "description": "Decimal string representation (e.g., '50.5')"
+                }
+              }
+            },
+            "label": {
+              "type": ["string", "null"],
+              "description": "Optional human-readable label for the quantity (e.g., 'Seed rate', 'Yield')"
+            },
+            "inventory_adjustment": {
+              "type": ["string", "null"],
+              "description": "Whether and how this quantity adjusts an asset's inventory",
+              "enum": ["increment", "decrement", "reset", null]
+            },
+            "created": {
+              "type": "integer",
+              "readOnly": true
+            },
+            "changed": {
+              "type": "integer",
+              "readOnly": true
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "units": {
+              "description": "Unit taxonomy term for this quantity",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "required": ["type", "id"],
+                      "properties": {
+                        "type": { "type": "string", "example": "taxonomy_term--unit" },
+                        "id": { "type": "string", "format": "uuid" }
+                      }
+                    },
+                    { "type": "null" }
+                  ]
+                }
+              }
+            },
+            "inventory_asset": {
+              "description": "Asset whose inventory is affected by this quantity",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "required": ["type", "id"],
+                      "properties": {
+                        "type": { "type": "string" },
+                        "id": { "type": "string", "format": "uuid" }
+                      }
+                    },
+                    { "type": "null" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

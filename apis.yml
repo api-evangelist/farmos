@@ -47,6 +47,8 @@ apis:
         url: https://farmos.org/development/farmos-py/
       - type: GitHubRepository
         url: https://github.com/farmOS/farmOS
+      - type: OpenAPI
+        url: openapi/farmos-farmos-api-openapi.yml
     contact:
       - FN: farmOS Community
         url: https://farmos.org/community/

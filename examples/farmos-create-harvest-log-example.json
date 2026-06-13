@@ -1,0 +1,133 @@
+{
+  "title": "Create a Harvest Log",
+  "description": "Example request body to create a harvest log recording a tomato harvest from a plant asset.",
+  "request": {
+    "method": "POST",
+    "url": "/api/log/harvest",
+    "headers": {
+      "Content-Type": "application/vnd.api+json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "data": {
+        "type": "log--harvest",
+        "attributes": {
+          "name": "Tomato harvest - North field",
+          "timestamp": 1720000000,
+          "status": "done",
+          "notes": {
+            "value": "Harvested ripe tomatoes from the north greenhouse beds. Quality excellent.",
+            "format": "default"
+          },
+          "is_movement": false
+        },
+        "relationships": {
+          "asset": {
+            "data": [
+              {
+                "type": "asset--plant",
+                "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            ]
+          },
+          "location": {
+            "data": [
+              {
+                "type": "asset--land",
+                "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+              }
+            ]
+          },
+          "quantity": {
+            "data": [
+              {
+                "type": "quantity--standard",
+                "id": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+              }
+            ]
+          },
+          "category": {
+            "data": [
+              {
+                "type": "taxonomy_term--log_category",
+                "id": "d4e5f6a7-b8c9-0123-defa-234567890123"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "log--harvest",
+        "id": "e5f6a7b8-c9d0-1234-efab-345678901234",
+        "attributes": {
+          "drupal_internal__id": 42,
+          "name": "Tomato harvest - North field",
+          "timestamp": 1720000000,
+          "status": "done",
+          "notes": {
+            "value": "Harvested ripe tomatoes from the north greenhouse beds. Quality excellent.",
+            "format": "default"
+          },
+          "is_movement": false,
+          "geometry": null,
+          "created": 1720001234,
+          "changed": 1720001234
+        },
+        "relationships": {
+          "asset": {
+            "data": [
+              {
+                "type": "asset--plant",
+                "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            ]
+          },
+          "location": {
+            "data": [
+              {
+                "type": "asset--land",
+                "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+              }
+            ]
+          },
+          "quantity": {
+            "data": [
+              {
+                "type": "quantity--standard",
+                "id": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+              }
+            ]
+          },
+          "category": {
+            "data": [
+              {
+                "type": "taxonomy_term--log_category",
+                "id": "d4e5f6a7-b8c9-0123-defa-234567890123"
+              }
+            ]
+          },
+          "owner": {
+            "data": []
+          },
+          "image": {
+            "data": []
+          },
+          "file": {
+            "data": []
+          }
+        },
+        "links": {
+          "self": "/api/log/harvest/e5f6a7b8-c9d0-1234-efab-345678901234"
+        }
+      }
+    }
+  }
+}

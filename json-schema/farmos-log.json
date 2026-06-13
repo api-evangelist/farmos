@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/farmos/main/json-schema/farmos-log.json",
+  "title": "farmOS Log",
+  "description": "Represents a farm activity record in the farmOS JSON:API. Logs include activity, observation, input, harvest, seeding, transplanting, lab_test, maintenance, medical, and birth types.",
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["type", "attributes"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "JSON:API resource type in the format log--[bundle]",
+          "enum": [
+            "log--activity",
+            "log--birth",
+            "log--harvest",
+            "log--input",
+            "log--lab_test",
+            "log--maintenance",
+            "log--medical",
+            "log--observation",
+            "log--seeding",
+            "log--transplanting"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "UUID of the log (assigned by server on create)",
+          "readOnly": true
+        },
+        "attributes": {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Log name/title",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": ["integer", "null"],
+              "description": "Unix timestamp of when the log event occurred"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["pending", "done", "abandoned"],
+              "description": "Log completion status. 'pending' is planned but not done, 'done' is complete, 'abandoned' is no longer pursued (4.x+)",
+              "default": "pending"
+            },
+            "notes": {
+              "type": ["object", "null"],
+              "description": "Rich text notes about the log",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "format": {
+                  "type": "string",
+                  "default": "default"
+                }
+              }
+            },
+            "geometry": {
+              "type": ["string", "null"],
+              "description": "WKT geometry string associated with this log event"
+            },
+            "is_movement": {
+              "type": "boolean",
+              "description": "Whether this log records a movement of assets to a new location. If true, the location relationship defines the new location.",
+              "default": false
+            },
+            "image": {
+              "type": "array",
+              "description": "Attached images",
+              "items": {
+                "type": "object"
+              }
+            },
+            "file": {
+              "type": "array",
+              "description": "Attached files",
+              "items": {
+                "type": "object"
+              }
+            },
+            "created": {
+              "type": "integer",
+              "description": "Unix timestamp of record creation",
+              "readOnly": true
+            },
+            "changed": {
+              "type": "integer",
+              "description": "Unix timestamp of last modification",
+              "readOnly": true
+            }
+          }
+        },
+        "relationships": {
+          "type": "object",
+          "description": "Related resources",
+          "properties": {
+            "asset": {
+              "description": "Asset(s) referenced by this log",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "location": {
+              "description": "Location asset(s) where this log occurred (or movement destination if is_movement is true)",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "category": {
+              "description": "Log category taxonomy term(s)",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "owner": {
+              "description": "User(s) responsible for this log",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "quantity": {
+              "description": "Quantity entities recording measurements",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "image": {
+              "description": "Attached image files",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "file": {
+              "description": "Attached files",
+              "$ref": "#/$defs/toManyRelationship"
+            }
+          }
+        },
+        "links": {
+          "$ref": "#/$defs/links"
+        }
+      }
+    },
+    "included": {
+      "type": "array",
+      "description": "Sideloaded related resources",
+      "items": {
+        "type": "object"
+      }
+    },
+    "links": {
+      "$ref": "#/$defs/links"
+    }
+  },
+  "$defs": {
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": { "type": "string", "format": "uri" },
+        "related": { "type": "string", "format": "uri" }
+      }
+    },
+    "resourceIdentifier": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": { "type": "string" },
+        "id": { "type": "string", "format": "uuid" }
+      }
+    },
+    "toOneRelationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "oneOf": [
+            { "$ref": "#/$defs/resourceIdentifier" },
+            { "type": "null" }
+          ]
+        },
+        "links": { "$ref": "#/$defs/links" }
+      }
+    },
+    "toManyRelationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/resourceIdentifier" }
+        },
+        "links": { "$ref": "#/$defs/links" }
+      }
+    }
+  }
+}

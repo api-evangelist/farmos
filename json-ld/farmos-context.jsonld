@@ -1,0 +1,197 @@
+{
+  "@context": {
+    "@version": 1.1,
+
+    "schema": "https://schema.org/",
+    "agri": "http://purl.org/agri/ns#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "jsonapi": "https://jsonapi.org/format/#",
+
+    "farmOS": "https://farmos.org/vocab/",
+    "farmOSAPI": "https://farmos.org/development/api/",
+
+    "Asset": "farmOS:Asset",
+    "Log": "farmOS:Log",
+    "Plan": "farmOS:Plan",
+    "Quantity": "farmOS:Quantity",
+
+    "AnimalAsset": "farmOS:AnimalAsset",
+    "LandAsset": "farmOS:LandAsset",
+    "PlantAsset": "farmOS:PlantAsset",
+    "EquipmentAsset": "farmOS:EquipmentAsset",
+    "StructureAsset": "farmOS:StructureAsset",
+    "SensorAsset": "farmOS:SensorAsset",
+    "GroupAsset": "farmOS:GroupAsset",
+    "MaterialAsset": "farmOS:MaterialAsset",
+    "SeedAsset": "farmOS:SeedAsset",
+    "CompostAsset": "farmOS:CompostAsset",
+    "WaterAsset": "farmOS:WaterAsset",
+    "ProductAsset": "farmOS:ProductAsset",
+
+    "ActivityLog": "farmOS:ActivityLog",
+    "ObservationLog": "farmOS:ObservationLog",
+    "InputLog": "farmOS:InputLog",
+    "HarvestLog": "farmOS:HarvestLog",
+    "SeedingLog": "farmOS:SeedingLog",
+    "TransplantingLog": "farmOS:TransplantingLog",
+    "LabTestLog": "farmOS:LabTestLog",
+    "MaintenanceLog": "farmOS:MaintenanceLog",
+    "MedicalLog": "farmOS:MedicalLog",
+    "BirthLog": "farmOS:BirthLog",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "status": "schema:status",
+    "notes": "farmOS:notes",
+    "created": {
+      "@id": "dcterms:created",
+      "@type": "xsd:integer"
+    },
+    "changed": {
+      "@id": "dcterms:modified",
+      "@type": "xsd:integer"
+    },
+    "timestamp": {
+      "@id": "farmOS:timestamp",
+      "@type": "xsd:integer"
+    },
+    "archived": {
+      "@id": "farmOS:archived",
+      "@type": "xsd:boolean"
+    },
+
+    "is_location": {
+      "@id": "farmOS:isLocation",
+      "@type": "xsd:boolean"
+    },
+    "is_fixed": {
+      "@id": "farmOS:isFixed",
+      "@type": "xsd:boolean"
+    },
+    "is_movement": {
+      "@id": "farmOS:isMovement",
+      "@type": "xsd:boolean"
+    },
+    "is_sterile": {
+      "@id": "farmOS:isSterile",
+      "@type": "xsd:boolean"
+    },
+    "intrinsic_geometry": {
+      "@id": "geo:hasWKTGeometry",
+      "@type": "geo:wktLiteral"
+    },
+    "geometry": {
+      "@id": "geo:hasGeometry",
+      "@type": "geo:wktLiteral"
+    },
+
+    "sex": "schema:gender",
+    "birthdate": {
+      "@id": "schema:birthDate",
+      "@type": "xsd:integer"
+    },
+    "nickname": "schema:alternateName",
+    "id_tag": "farmOS:identificationTag",
+    "land_type": "farmOS:landType",
+    "nickname_list": "schema:alternateName",
+
+    "measure": "farmOS:measure",
+    "value": "schema:value",
+    "label": "schema:label",
+    "inventory_adjustment": "farmOS:inventoryAdjustment",
+    "units": "farmOS:units",
+    "inventory_asset": "farmOS:inventoryAsset",
+
+    "asset": {
+      "@id": "farmOS:hasAsset",
+      "@type": "@id"
+    },
+    "location": {
+      "@id": "farmOS:hasLocation",
+      "@type": "@id"
+    },
+    "parent": {
+      "@id": "farmOS:hasParent",
+      "@type": "@id"
+    },
+    "category": {
+      "@id": "farmOS:hasCategory",
+      "@type": "@id"
+    },
+    "owner": {
+      "@id": "schema:owner",
+      "@type": "@id"
+    },
+    "quantity": {
+      "@id": "farmOS:hasQuantity",
+      "@type": "@id"
+    },
+    "plant_type": {
+      "@id": "farmOS:plantType",
+      "@type": "@id"
+    },
+    "animal_type": {
+      "@id": "farmOS:animalType",
+      "@type": "@id"
+    },
+    "image": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "file": {
+      "@id": "schema:associatedMedia",
+      "@type": "@id"
+    },
+
+    "farm": {
+      "@id": "farmOS:Farm",
+      "name": "schema:name",
+      "url": "schema:url",
+      "version": "schema:version",
+      "system_of_measurement": "farmOS:systemOfMeasurement"
+    },
+
+    "oauth2": {
+      "@id": "https://www.iana.org/assignments/uri-schemes/perm/oauth2",
+      "tokenUrl": "farmOS:tokenUrl",
+      "authorizationUrl": "farmOS:authorizationUrl",
+      "scopes": {
+        "farm_manager": "farmOS:ScopeFarmManager",
+        "farm_worker": "farmOS:ScopeFarmWorker",
+        "farm_viewer": "farmOS:ScopeFarmViewer"
+      }
+    },
+
+    "PlantType": {
+      "@id": "farmOS:PlantType",
+      "@type": "skos:Concept"
+    },
+    "AnimalType": {
+      "@id": "farmOS:AnimalType",
+      "@type": "skos:Concept"
+    },
+    "LogCategory": {
+      "@id": "farmOS:LogCategory",
+      "@type": "skos:Concept"
+    },
+    "Unit": {
+      "@id": "farmOS:Unit",
+      "@type": "skos:Concept"
+    },
+    "EquipmentType": {
+      "@id": "farmOS:EquipmentType",
+      "@type": "skos:Concept"
+    },
+    "MaterialType": {
+      "@id": "farmOS:MaterialType",
+      "@type": "skos:Concept"
+    },
+    "Season": {
+      "@id": "farmOS:Season",
+      "@type": "skos:Concept"
+    }
+  }
+}

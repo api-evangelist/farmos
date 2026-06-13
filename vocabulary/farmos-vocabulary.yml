@@ -1,0 +1,382 @@
+title: farmOS API Vocabulary
+description: Controlled vocabulary of key terms, concepts, and domain entities used in the farmOS JSON:API.
+version: '2.x'
+source: https://farmos.org/development/api/
+updated: '2026-06-13'
+
+terms:
+
+  # ── CORE ENTITIES ──────────────────────────────────────────────────────────
+
+  - term: asset
+    label: Asset
+    definition: >
+      A physical or logical entity managed on a farm. Assets persist over time
+      and are tracked through logs. Each asset has a type (bundle) that
+      determines its specific attributes and purpose.
+    uri: https://farmos.org/guide/assets/
+    related: [log, location, inventory]
+
+  - term: log
+    label: Log
+    definition: >
+      A farm activity record that documents events, observations, or actions
+      at a specific point in time. Logs reference assets they affect and can
+      record measurements via quantities.
+    uri: https://farmos.org/guide/logs/
+    related: [asset, quantity, location]
+
+  - term: plan
+    label: Plan
+    definition: >
+      A forward-looking organizational record used to plan farm activities.
+      Plans can group related logs and assets together.
+    uri: https://farmos.org/guide/plans/
+    related: [log, asset]
+
+  - term: quantity
+    label: Quantity
+    definition: >
+      A numeric measurement entity linked to a log. Quantities record what
+      was measured (measure type), how much (value), and in what units.
+      They can also track inventory adjustments for assets.
+    uri: https://farmos.org/model/quantity/
+    related: [log, unit, inventory]
+
+  # ── ASSET TYPES ────────────────────────────────────────────────────────────
+
+  - term: asset_animal
+    label: Animal Asset
+    definition: >
+      Represents an individual animal or group of animals. Can track species,
+      breed, sex, birthdate, and identification tags. Supports livestock
+      management workflows including births, medical records, and movements.
+    bundle: animal
+    jsonApiType: asset--animal
+
+  - term: asset_land
+    label: Land Asset
+    definition: >
+      Represents a geographic area on the farm such as a field, bed, paddock,
+      or water feature. Land assets have a land_type attribute and are typically
+      fixed locations (is_fixed=true, is_location=true).
+    bundle: land
+    jsonApiType: asset--land
+    landTypes: [field, bed, paddock, water, structure, other]
+
+  - term: asset_plant
+    label: Plant Asset
+    definition: >
+      Represents a planting or group of plants. Associated with plant type
+      taxonomy terms that define the crop or variety. Tracked through seeding
+      and transplanting logs.
+    bundle: plant
+    jsonApiType: asset--plant
+
+  - term: asset_equipment
+    label: Equipment Asset
+    definition: >
+      Represents farm machinery and tools. Referenced in activity logs to
+      record which equipment was used. Tracked through maintenance logs.
+    bundle: equipment
+    jsonApiType: asset--equipment
+
+  - term: asset_structure
+    label: Structure Asset
+    definition: >
+      Represents permanent or semi-permanent farm structures such as barns,
+      greenhouses, or fences. Managed through maintenance logs.
+    bundle: structure
+    jsonApiType: asset--structure
+
+  - term: asset_sensor
+    label: Sensor Asset
+    definition: >
+      Represents an IoT sensor device that provides automated environmental
+      data via data streams. Used for monitoring conditions such as temperature,
+      humidity, or soil moisture.
+    bundle: sensor
+    jsonApiType: asset--sensor
+
+  - term: asset_group
+    label: Group Asset
+    definition: >
+      A special organizational asset that groups other assets together for
+      collective management. Animals can be assigned to groups and managed
+      as a herd or flock.
+    bundle: group
+    jsonApiType: asset--group
+
+  - term: asset_material
+    label: Material Asset
+    definition: >
+      Tracks inventory of farm inputs and materials such as seeds, fertilizer,
+      or feed before use. Uses the inventory system to track stock levels.
+    bundle: material
+    jsonApiType: asset--material
+
+  - term: asset_seed
+    label: Seed Asset
+    definition: >
+      Tracks seed inventory prior to planting. Shares the plant type taxonomy
+      with plant assets for crop/variety classification.
+    bundle: seed
+    jsonApiType: asset--seed
+
+  - term: asset_compost
+    label: Compost Asset
+    definition: >
+      Manages compost production including piles, windrows, and vermicompost
+      systems. Tracks inputs and outputs of composting operations.
+    bundle: compost
+    jsonApiType: asset--compost
+
+  - term: asset_water
+    label: Water Asset
+    definition: >
+      Represents fixed water features such as ponds, lakes, streams, or
+      irrigation systems on the farm.
+    bundle: water
+    jsonApiType: asset--water
+
+  # ── LOG TYPES ──────────────────────────────────────────────────────────────
+
+  - term: log_activity
+    label: Activity Log
+    definition: >
+      The default, general-purpose log type for recording any farm task or
+      activity that does not fit a more specific log type.
+    bundle: activity
+    jsonApiType: log--activity
+
+  - term: log_observation
+    label: Observation Log
+    definition: >
+      Records passive observations of farm conditions or asset states, such
+      as noting plant germination or crop growth stage.
+    bundle: observation
+    jsonApiType: log--observation
+
+  - term: log_input
+    label: Input Log
+    definition: >
+      Documents application of resources to farm assets, such as fertilizer
+      application, animal feed, or pesticide treatments.
+    bundle: input
+    jsonApiType: log--input
+
+  - term: log_harvest
+    label: Harvest Log
+    definition: >
+      Records the collection of crops or products from assets. Can trigger
+      archival of the harvested asset if the full asset is consumed.
+    bundle: harvest
+    jsonApiType: log--harvest
+
+  - term: log_seeding
+    label: Seeding Log
+    definition: >
+      Records planting events with seeding quantity and location information.
+      Typically linked to a plant or seed asset.
+    bundle: seeding
+    jsonApiType: log--seeding
+
+  - term: log_transplanting
+    label: Transplanting Log
+    definition: >
+      Records the movement of plants from one location to another, such as
+      moving seedlings from a nursery to a field.
+    bundle: transplanting
+    jsonApiType: log--transplanting
+
+  - term: log_lab_test
+    label: Lab Test Log
+    definition: >
+      Documents sample analysis results with measurement data and file
+      attachments. Used for soil tests, water quality tests, or produce
+      quality analysis.
+    bundle: lab_test
+    jsonApiType: log--lab_test
+
+  - term: log_maintenance
+    label: Maintenance Log
+    definition: >
+      Records upkeep activities for equipment, structures, or other assets
+      such as repairs, tune-ups, cleaning, or inspections.
+    bundle: maintenance
+    jsonApiType: log--maintenance
+
+  - term: log_medical
+    label: Medical Log
+    definition: >
+      Documents animal health records including veterinary visits, vaccinations,
+      treatments, and medical procedures.
+    bundle: medical
+    jsonApiType: log--medical
+
+  - term: log_birth
+    label: Birth Log
+    definition: >
+      Records animal births and automatically updates parent and birthdate
+      fields on the referenced animal assets.
+    bundle: birth
+    jsonApiType: log--birth
+
+  # ── AUTHENTICATION ─────────────────────────────────────────────────────────
+
+  - term: oauth2
+    label: OAuth2
+    definition: >
+      The authentication mechanism used by farmOS. Clients obtain access tokens
+      via the /oauth/authorize and /oauth/token endpoints.
+    scopes:
+      - name: farm_manager
+        description: Full management access to all farm data
+      - name: farm_worker
+        description: Worker-level access for day-to-day farm operations
+      - name: farm_viewer
+        description: Read-only access to view farm records
+
+  - term: access_token
+    label: Access Token
+    definition: >
+      A bearer token obtained via OAuth2 that must be included in API requests
+      in the Authorization HTTP header as "Bearer {token}".
+
+  - term: client_credentials_grant
+    label: Client Credentials Grant
+    definition: >
+      OAuth2 grant type for machine-to-machine authentication without a user
+      account. The default client_id is "farm".
+
+  - term: authorization_code_grant
+    label: Authorization Code Grant
+    definition: >
+      Recommended OAuth2 grant type for third-party client applications where
+      users interactively authorize access to their farmOS data.
+
+  # ── JSON:API CONCEPTS ──────────────────────────────────────────────────────
+
+  - term: jsonapi
+    label: JSON:API
+    definition: >
+      The specification (https://jsonapi.org/) that farmOS follows for its REST
+      API. All resources have type and id properties, with attributes and
+      relationships nested separately.
+
+  - term: uuid
+    label: UUID
+    definition: >
+      Universally Unique Identifier used to identify all farmOS resources.
+      All farmOS 2.x+ entities use UUIDs rather than integer IDs for external
+      API access.
+
+  - term: bundle
+    label: Bundle
+    definition: >
+      The sub-type of a Drupal entity. In JSON:API, the type field is formatted
+      as entity_type--bundle (e.g., asset--animal, log--harvest).
+
+  - term: is_movement
+    label: Is Movement
+    definition: >
+      A boolean log attribute indicating that this log records the movement of
+      referenced assets to a new location. When true, the location relationship
+      defines the asset's new current location.
+
+  - term: is_location
+    label: Is Location
+    definition: >
+      A boolean asset attribute indicating that this asset can act as a
+      location for other assets and logs.
+
+  - term: is_fixed
+    label: Is Fixed
+    definition: >
+      A boolean asset attribute indicating that the asset has a permanent,
+      non-moving location defined by its intrinsic_geometry.
+
+  - term: inventory
+    label: Inventory
+    definition: >
+      A system for tracking numeric stock levels of material assets. Quantities
+      with an inventory_adjustment (increment/decrement/reset) affect the
+      computed inventory of a referenced asset.
+
+  # ── TAXONOMY TYPES ─────────────────────────────────────────────────────────
+
+  - term: taxonomy_plant_type
+    label: Plant Type
+    definition: >
+      Taxonomy vocabulary for classifying plants and crops. Defines the
+      crop or variety for plant and seed assets.
+    jsonApiType: taxonomy_term--plant_type
+
+  - term: taxonomy_animal_type
+    label: Animal Type
+    definition: >
+      Taxonomy vocabulary for classifying animal species and breeds.
+    jsonApiType: taxonomy_term--animal_type
+
+  - term: taxonomy_log_category
+    label: Log Category
+    definition: >
+      Taxonomy vocabulary for categorizing logs. Allows grouping of logs
+      by topic or activity type.
+    jsonApiType: taxonomy_term--log_category
+
+  - term: taxonomy_unit
+    label: Unit
+    definition: >
+      Taxonomy vocabulary for units of measurement used in quantities
+      (e.g., kg, lbs, acres, liters).
+    jsonApiType: taxonomy_term--unit
+
+  - term: taxonomy_equipment_type
+    label: Equipment Type
+    definition: >
+      Taxonomy vocabulary for classifying farm equipment categories.
+    jsonApiType: taxonomy_term--equipment_type
+
+  - term: taxonomy_material_type
+    label: Material Type
+    definition: >
+      Taxonomy vocabulary for classifying farm materials and inputs.
+    jsonApiType: taxonomy_term--material_type
+
+  # ── MEASUREMENT TYPES ─────────────────────────────────────────────────────
+
+  - term: measure_weight
+    label: Weight Measure
+    measure: weight
+    definition: Quantity measure for recording mass/weight values.
+
+  - term: measure_volume
+    label: Volume Measure
+    measure: volume
+    definition: Quantity measure for recording volume values.
+
+  - term: measure_count
+    label: Count Measure
+    measure: count
+    definition: Quantity measure for recording numeric counts of items.
+
+  - term: measure_length
+    label: Length Measure
+    measure: length
+    definition: Quantity measure for recording distance or length values.
+
+  - term: measure_area
+    label: Area Measure
+    measure: area
+    definition: Quantity measure for recording surface area values.
+
+  - term: measure_temperature
+    label: Temperature Measure
+    measure: temperature
+    definition: Quantity measure for recording temperature readings.
+
+  - term: measure_water_content
+    label: Water Content Measure
+    measure: water_content
+    definition: Quantity measure for recording moisture or water content percentages.

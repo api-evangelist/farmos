@@ -1,0 +1,91 @@
+{
+  "title": "List Active Land Assets",
+  "description": "Example request to list active land assets, sorted by name, with pagination.",
+  "request": {
+    "method": "GET",
+    "url": "/api/asset/land?filter[status]=active&sort=name&page[limit]=10&page[offset]=0",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/vnd.api+json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": [
+        {
+          "type": "asset--land",
+          "id": "b8c9d0e1-f2a3-4567-bcd4-678901234567",
+          "attributes": {
+            "drupal_internal__id": 3,
+            "name": "East paddock",
+            "status": "active",
+            "land_type": "paddock",
+            "is_location": true,
+            "is_fixed": true,
+            "intrinsic_geometry": "POLYGON((-93.2 44.9, -93.1 44.9, -93.1 44.8, -93.2 44.8, -93.2 44.9))",
+            "geometry": "POLYGON((-93.2 44.9, -93.1 44.9, -93.1 44.8, -93.2 44.8, -93.2 44.9))",
+            "notes": {
+              "value": "20-acre rotational paddock. Used for beef cattle.",
+              "format": "default"
+            },
+            "nickname": [],
+            "id_tag": [],
+            "created": 1680000000,
+            "changed": 1700000000
+          },
+          "relationships": {
+            "parent": { "data": [] },
+            "location": { "data": [] },
+            "image": { "data": [] },
+            "file": { "data": [] }
+          },
+          "links": {
+            "self": "/api/asset/land/b8c9d0e1-f2a3-4567-bcd4-678901234567"
+          }
+        },
+        {
+          "type": "asset--land",
+          "id": "c9d0e1f2-a3b4-5678-cde5-789012345678",
+          "attributes": {
+            "drupal_internal__id": 5,
+            "name": "North field",
+            "status": "active",
+            "land_type": "field",
+            "is_location": true,
+            "is_fixed": true,
+            "intrinsic_geometry": "POLYGON((-93.3 45.0, -93.2 45.0, -93.2 44.9, -93.3 44.9, -93.3 45.0))",
+            "geometry": "POLYGON((-93.3 45.0, -93.2 45.0, -93.2 44.9, -93.3 44.9, -93.3 45.0))",
+            "notes": {
+              "value": "40-acre crop field. Irrigated. Currently in corn-soybean rotation.",
+              "format": "default"
+            },
+            "nickname": [],
+            "id_tag": [],
+            "created": 1680000100,
+            "changed": 1710000000
+          },
+          "relationships": {
+            "parent": { "data": [] },
+            "location": { "data": [] },
+            "image": { "data": [] },
+            "file": { "data": [] }
+          },
+          "links": {
+            "self": "/api/asset/land/c9d0e1f2-a3b4-5678-cde5-789012345678"
+          }
+        }
+      ],
+      "links": {
+        "self": "/api/asset/land?filter[status]=active&sort=name&page[limit]=10&page[offset]=0",
+        "next": "/api/asset/land?filter[status]=active&sort=name&page[limit]=10&page[offset]=10"
+      },
+      "meta": {
+        "count": 12
+      }
+    }
+  }
+}

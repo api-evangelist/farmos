@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/farmos/main/json-schema/farmos-asset.json",
+  "title": "farmOS Asset",
+  "description": "Represents a physical or logical farm asset in the farmOS JSON:API. Assets include land, animals, equipment, plants, structures, water, material, seed, compost, sensors, and groups.",
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "JSON:API resource type in the format asset--[bundle]",
+          "enum": [
+            "asset--animal",
+            "asset--compost",
+            "asset--equipment",
+            "asset--group",
+            "asset--land",
+            "asset--material",
+            "asset--plant",
+            "asset--product",
+            "asset--seed",
+            "asset--sensor",
+            "asset--structure",
+            "asset--water"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "UUID of the asset (assigned by server on create)",
+          "readOnly": true
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Human-readable name of the asset",
+              "minLength": 1
+            },
+            "status": {
+              "type": "string",
+              "enum": ["active", "archived"],
+              "description": "Asset lifecycle status",
+              "default": "active"
+            },
+            "archived": {
+              "type": "boolean",
+              "description": "Whether the asset is archived (farmOS 4.x+)"
+            },
+            "notes": {
+              "type": ["object", "null"],
+              "description": "Rich text notes about the asset",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "description": "Note content"
+                },
+                "format": {
+                  "type": "string",
+                  "description": "Text format (e.g., default, plain_text)",
+                  "default": "default"
+                }
+              }
+            },
+            "is_location": {
+              "type": "boolean",
+              "description": "Whether this asset can serve as a location for other assets and logs",
+              "default": false
+            },
+            "is_fixed": {
+              "type": "boolean",
+              "description": "Whether the asset has a fixed, non-moving geometry",
+              "default": false
+            },
+            "intrinsic_geometry": {
+              "type": ["string", "null"],
+              "description": "WKT geometry string for fixed-location assets (e.g., POINT(lon lat) or POLYGON(...))"
+            },
+            "geometry": {
+              "type": ["string", "null"],
+              "description": "Current computed geometry in WKT format (read-only, derived from logs)",
+              "readOnly": true
+            },
+            "nickname": {
+              "type": "array",
+              "description": "Alternative names or nicknames for the asset",
+              "items": {
+                "type": "string"
+              }
+            },
+            "id_tag": {
+              "type": "array",
+              "description": "Physical identification tags attached to the asset",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Tag identifier or number"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Tag type (e.g., ear_tag, tattoo, microchip, brand)"
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "Physical location of the tag on the animal"
+                  }
+                }
+              }
+            },
+            "sex": {
+              "type": ["string", "null"],
+              "description": "Sex of the animal (animal assets only)",
+              "enum": ["M", "F", null]
+            },
+            "birthdate": {
+              "type": ["integer", "null"],
+              "description": "Unix timestamp of animal birth date (animal assets only)"
+            },
+            "is_sterile": {
+              "type": ["boolean", "null"],
+              "description": "Whether the animal is sterile/castrated (animal assets only, renamed from is_castrated in 4.x)"
+            },
+            "land_type": {
+              "type": ["string", "null"],
+              "description": "Type of land area (land assets only): field, bed, paddock, water, structure, other"
+            },
+            "created": {
+              "type": "integer",
+              "description": "Unix timestamp of record creation",
+              "readOnly": true
+            },
+            "changed": {
+              "type": "integer",
+              "description": "Unix timestamp of last modification",
+              "readOnly": true
+            }
+          },
+          "required": ["name"]
+        },
+        "relationships": {
+          "type": "object",
+          "description": "Related resources",
+          "properties": {
+            "parent": {
+              "description": "Parent asset(s) in a hierarchy",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "location": {
+              "description": "Current location asset(s)",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "image": {
+              "description": "Attached image files",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "file": {
+              "description": "Attached files",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "plant_type": {
+              "description": "Plant type taxonomy term(s) (plant assets only)",
+              "$ref": "#/$defs/toManyRelationship"
+            },
+            "animal_type": {
+              "description": "Animal type taxonomy term (animal assets only)",
+              "$ref": "#/$defs/toOneRelationship"
+            }
+          }
+        },
+        "links": {
+          "$ref": "#/$defs/links"
+        }
+      }
+    },
+    "included": {
+      "type": "array",
+      "description": "Sideloaded related resources",
+      "items": {
+        "type": "object"
+      }
+    },
+    "links": {
+      "$ref": "#/$defs/links"
+    }
+  },
+  "$defs": {
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "string",
+          "format": "uri"
+        },
+        "related": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "resourceIdentifier": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "toOneRelationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "oneOf": [
+            { "$ref": "#/$defs/resourceIdentifier" },
+            { "type": "null" }
+          ]
+        },
+        "links": {
+          "$ref": "#/$defs/links"
+        }
+      }
+    },
+    "toManyRelationship": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resourceIdentifier"
+          }
+        },
+        "links": {
+          "$ref": "#/$defs/links"
+        }
+      }
+    }
+  }
+}
