@@ -5,7 +5,7 @@ description: Open-source farm management and record-keeping system with a JSON:A
   deployments and managed hosting via Farmier. Authentication uses OAuth2 with Authorization
   Code, Password Credentials, and Client Credentials grant types.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/farmos/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
