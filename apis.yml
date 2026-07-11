@@ -54,6 +54,10 @@ apis:
         url: https://farmos.org/community/
         email: ''
 common:
+  - type: DomainSecurity
+    url: security/farmos-domain-security.yml
+  - type: Authentication
+    url: authentication/farmos-authentication.yml
   - type: OAuthScopes
     url: scopes/farmos-scopes.yml
   - type: Website
