@@ -1,0 +1,43 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/farmos-farmos-api-openapi.yml
+schemes:
+- name: oauth2AuthorizationCode
+  source: openapi/farmos-farmos-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /oauth/authorize
+    tokenUrl: /oauth/token
+  description: |-
+    OAuth2 Authorization Code grant for third-party integrations. Users
+    authorize the client application to access their farmOS data.
+- name: oauth2ClientCredentials
+  source: openapi/farmos-farmos-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: /oauth/token
+  description: |-
+    OAuth2 Client Credentials grant for machine-to-machine authentication.
+    Used when no user account is required.
+scopes:
+- scope: farm_manager
+  description: Full management access to the farm
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/farmos-farmos-api-openapi.yml
+- scope: farm_viewer
+  description: Read-only access to farm records
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/farmos-farmos-api-openapi.yml
+- scope: farm_worker
+  description: Worker-level access to farm records
+  flows:
+  - authorizationCode
+  - clientCredentials
+  sources:
+  - openapi/farmos-farmos-api-openapi.yml
