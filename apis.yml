@@ -54,6 +54,8 @@ apis:
         url: https://farmos.org/community/
         email: ''
 common:
+  - type: AgenticAccess
+    url: agentic-access/farmos-agentic-access.yml
   - type: DomainSecurity
     url: security/farmos-domain-security.yml
   - type: Authentication
