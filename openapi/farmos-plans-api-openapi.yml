@@ -1,0 +1,348 @@
+openapi: 3.0.3
+info:
+  title: 'farmOS JSON: Assets Plans API'
+  description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
+
+    It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
+
+    resource identifiers. The root endpoint at /api returns server metadata and
+
+    available resource types. Resource endpoints follow the pattern
+
+    /api/[entity-type]/[bundle].
+
+
+    farmOS is an open-source farm management and record-keeping system built on
+
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
+
+    '
+  version: 2.x
+  contact:
+    name: farmOS Community
+    url: https://farmos.org/community/
+  license:
+    name: GNU General Public License v2.0
+    url: https://github.com/farmOS/farmOS/blob/main/LICENSE.txt
+  termsOfService: https://farmos.org/
+servers:
+- url: https://{farmOS-host}/api
+  description: Self-hosted farmOS instance
+  variables:
+    farmOS-host:
+      default: example.farmos.net
+      description: The hostname of your farmOS instance (self-hosted or Farmier-managed)
+security:
+- oauth2AuthorizationCode:
+  - farm_manager
+- oauth2ClientCredentials:
+  - farm_manager
+tags:
+- name: Plans
+  description: Farm planning records
+paths:
+  /plan/plan:
+    get:
+      operationId: listPlans
+      summary: List plans
+      description: Returns a collection of farm plans.
+      tags:
+      - Plans
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of plans
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PlanCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPlan
+      summary: Create a plan
+      tags:
+      - Plans
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+      responses:
+        '201':
+          description: Plan created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PlanResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /plan/plan/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getPlan
+      summary: Get a plan
+      tags:
+      - Plans
+      responses:
+        '200':
+          description: A plan
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PlanResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updatePlan
+      summary: Update a plan
+      tags:
+      - Plans
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+      responses:
+        '200':
+          description: Updated plan
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PlanResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePlan
+      summary: Delete a plan
+      tags:
+      - Plans
+      responses:
+        '204':
+          description: Plan deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    PlanData:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          example: plan--plan
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/PlanAttributes'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    JsonApiError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
+    PlanAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Plan name
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+        notes:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+        created:
+          type: integer
+          readOnly: true
+        changed:
+          type: integer
+          readOnly: true
+    PlanResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PlanData'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    PlanRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/PlanData'
+    PlanCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanData'
+        links:
+          type: object
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+  parameters:
+    FilterField:
+      name: filter[field]
+      in: query
+      description: 'JSON:API filter parameter. Use dot notation for nested fields.
+
+        Example: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=
+
+        '
+      schema:
+        type: string
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the resource
+      schema:
+        type: string
+        format: uuid
+      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
+    SortField:
+      name: sort
+      in: query
+      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
+
+        Example: sort=-timestamp,name
+
+        '
+      schema:
+        type: string
+    PageSize:
+      name: page[limit]
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    IncludeRelated:
+      name: include
+      in: query
+      description: 'Comma-separated list of related resources to include in the response.
+
+        Example: include=asset,quantity
+
+        '
+      schema:
+        type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  securitySchemes:
+    oauth2AuthorizationCode:
+      type: oauth2
+      description: 'OAuth2 Authorization Code grant for third-party integrations. Users
+
+        authorize the client application to access their farmOS data.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+    oauth2ClientCredentials:
+      type: oauth2
+      description: 'OAuth2 Client Credentials grant for machine-to-machine authentication.
+
+        Used when no user account is required.
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+externalDocs:
+  description: farmOS API Documentation
+  url: https://farmos.org/development/api/

@@ -1,0 +1,1301 @@
+openapi: 3.0.3
+info:
+  title: 'farmOS JSON: Assets Logs API'
+  description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
+
+    It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
+
+    resource identifiers. The root endpoint at /api returns server metadata and
+
+    available resource types. Resource endpoints follow the pattern
+
+    /api/[entity-type]/[bundle].
+
+
+    farmOS is an open-source farm management and record-keeping system built on
+
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
+
+    '
+  version: 2.x
+  contact:
+    name: farmOS Community
+    url: https://farmos.org/community/
+  license:
+    name: GNU General Public License v2.0
+    url: https://github.com/farmOS/farmOS/blob/main/LICENSE.txt
+  termsOfService: https://farmos.org/
+servers:
+- url: https://{farmOS-host}/api
+  description: Self-hosted farmOS instance
+  variables:
+    farmOS-host:
+      default: example.farmos.net
+      description: The hostname of your farmOS instance (self-hosted or Farmier-managed)
+security:
+- oauth2AuthorizationCode:
+  - farm_manager
+- oauth2ClientCredentials:
+  - farm_manager
+tags:
+- name: Logs
+  description: Farm activity records (activities, observations, inputs, harvests, etc.)
+paths:
+  /log/activity:
+    get:
+      operationId: listActivityLogs
+      summary: List activity logs
+      description: Returns a collection of activity logs (general catch-all log type).
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of activity logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createActivityLog
+      summary: Create an activity log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Activity log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/activity/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getActivityLog
+      summary: Get an activity log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: An activity log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateActivityLog
+      summary: Update an activity log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated activity log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteActivityLog
+      summary: Delete an activity log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Activity log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/observation:
+    get:
+      operationId: listObservationLogs
+      summary: List observation logs
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of observation logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createObservationLog
+      summary: Create an observation log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Observation log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/observation/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getObservationLog
+      summary: Get an observation log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: An observation log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateObservationLog
+      summary: Update an observation log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated observation log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteObservationLog
+      summary: Delete an observation log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Observation log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/input:
+    get:
+      operationId: listInputLogs
+      summary: List input logs
+      description: Records of resources put into farm assets (e.g., fertilizer, feed).
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of input logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createInputLog
+      summary: Create an input log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Input log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/input/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getInputLog
+      summary: Get an input log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: An input log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateInputLog
+      summary: Update an input log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated input log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteInputLog
+      summary: Delete an input log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Input log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/harvest:
+    get:
+      operationId: listHarvestLogs
+      summary: List harvest logs
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of harvest logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createHarvestLog
+      summary: Create a harvest log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Harvest log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/harvest/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getHarvestLog
+      summary: Get a harvest log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A harvest log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateHarvestLog
+      summary: Update a harvest log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated harvest log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteHarvestLog
+      summary: Delete a harvest log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Harvest log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/seeding:
+    get:
+      operationId: listSeedingLogs
+      summary: List seeding logs
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of seeding logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSeedingLog
+      summary: Create a seeding log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Seeding log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/seeding/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getSeedingLog
+      summary: Get a seeding log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A seeding log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateSeedingLog
+      summary: Update a seeding log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated seeding log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSeedingLog
+      summary: Delete a seeding log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Seeding log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/transplanting:
+    get:
+      operationId: listTransplantingLogs
+      summary: List transplanting logs
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of transplanting logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTransplantingLog
+      summary: Create a transplanting log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Transplanting log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/transplanting/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getTransplantingLog
+      summary: Get a transplanting log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A transplanting log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateTransplantingLog
+      summary: Update a transplanting log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated transplanting log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTransplantingLog
+      summary: Delete a transplanting log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Transplanting log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/maintenance:
+    get:
+      operationId: listMaintenanceLogs
+      summary: List maintenance logs
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of maintenance logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMaintenanceLog
+      summary: Create a maintenance log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Maintenance log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/maintenance/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getMaintenanceLog
+      summary: Get a maintenance log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A maintenance log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateMaintenanceLog
+      summary: Update a maintenance log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated maintenance log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMaintenanceLog
+      summary: Delete a maintenance log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Maintenance log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/medical:
+    get:
+      operationId: listMedicalLogs
+      summary: List medical logs
+      description: Animal health records, veterinary visits, and medical procedures.
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of medical logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMedicalLog
+      summary: Create a medical log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Medical log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/medical/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getMedicalLog
+      summary: Get a medical log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A medical log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateMedicalLog
+      summary: Update a medical log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated medical log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMedicalLog
+      summary: Delete a medical log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Medical log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/birth:
+    get:
+      operationId: listBirthLogs
+      summary: List birth logs
+      description: Animal birth records.
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of birth logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBirthLog
+      summary: Create a birth log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Birth log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/birth/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getBirthLog
+      summary: Get a birth log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A birth log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateBirthLog
+      summary: Update a birth log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated birth log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteBirthLog
+      summary: Delete a birth log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Birth log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /log/lab_test:
+    get:
+      operationId: listLabTestLogs
+      summary: List lab test logs
+      description: Sample analysis results with measurement data and file attachments.
+      tags:
+      - Logs
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/FilterField'
+      - $ref: '#/components/parameters/SortField'
+      - $ref: '#/components/parameters/IncludeRelated'
+      responses:
+        '200':
+          description: A collection of lab test logs
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createLabTestLog
+      summary: Create a lab test log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Lab test log created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /log/lab_test/{id}:
+    parameters:
+    - $ref: '#/components/parameters/ResourceId'
+    get:
+      operationId: getLabTestLog
+      summary: Get a lab test log
+      tags:
+      - Logs
+      responses:
+        '200':
+          description: A lab test log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateLabTestLog
+      summary: Update a lab test log
+      tags:
+      - Logs
+      requestBody:
+        required: true
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '200':
+          description: Updated lab test log
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteLabTestLog
+      summary: Delete a lab test log
+      tags:
+      - Logs
+      responses:
+        '204':
+          description: Lab test log deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    FilterField:
+      name: filter[field]
+      in: query
+      description: 'JSON:API filter parameter. Use dot notation for nested fields.
+
+        Example: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=
+
+        '
+      schema:
+        type: string
+    PageSize:
+      name: page[limit]
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    IncludeRelated:
+      name: include
+      in: query
+      description: 'Comma-separated list of related resources to include in the response.
+
+        Example: include=asset,quantity
+
+        '
+      schema:
+        type: string
+    SortField:
+      name: sort
+      in: query
+      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
+
+        Example: sort=-timestamp,name
+
+        '
+      schema:
+        type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the resource
+      schema:
+        type: string
+        format: uuid
+      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
+  schemas:
+    JsonApiError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
+    LogCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogData'
+        included:
+          type: array
+          items:
+            type: object
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: uri
+            next:
+              type: string
+              format: uri
+            prev:
+              type: string
+              format: uri
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+    JsonApiRelationship:
+      type: object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type: array
+            items:
+              $ref: '#/components/schemas/JsonApiRelationshipData'
+          - nullable: true
+            type: object
+            maxProperties: 0
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    LogRelationships:
+      type: object
+      description: Common relationships shared by all log types
+      properties:
+        asset:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        location:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        category:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        owner:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        quantity:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        image:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        file:
+          $ref: '#/components/schemas/JsonApiRelationship'
+    LogData:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., log--activity, log--harvest)
+          example: log--activity
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/LogAttributes'
+        relationships:
+          $ref: '#/components/schemas/LogRelationships'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    LogAttributes:
+      type: object
+      description: Common attributes shared by all log types
+      properties:
+        drupal_internal__id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: Log name/title
+        timestamp:
+          type: integer
+          description: Unix timestamp of the log event
+        status:
+          type: string
+          enum:
+          - pending
+          - done
+          - abandoned
+          description: Log completion status
+        notes:
+          type: object
+          description: Free-form notes (rich text)
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+        geometry:
+          type: string
+          description: WKT geometry associated with this log
+        is_movement:
+          type: boolean
+          description: Whether this log records asset movement to a new location
+        image:
+          type: array
+          items:
+            type: object
+        file:
+          type: array
+          items:
+            type: object
+        created:
+          type: integer
+          readOnly: true
+        changed:
+          type: integer
+          readOnly: true
+    LogResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/LogData'
+        included:
+          type: array
+          items:
+            type: object
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    JsonApiRelationshipData:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+    LogRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/LogData'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+  securitySchemes:
+    oauth2AuthorizationCode:
+      type: oauth2
+      description: 'OAuth2 Authorization Code grant for third-party integrations. Users
+
+        authorize the client application to access their farmOS data.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+    oauth2ClientCredentials:
+      type: oauth2
+      description: 'OAuth2 Client Credentials grant for machine-to-machine authentication.
+
+        Used when no user account is required.
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+externalDocs:
+  description: farmOS API Documentation
+  url: https://farmos.org/development/api/

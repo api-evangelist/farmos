@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: 'farmOS JSON: Assets Taxonomy API'
+  description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
+
+    It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
+
+    resource identifiers. The root endpoint at /api returns server metadata and
+
+    available resource types. Resource endpoints follow the pattern
+
+    /api/[entity-type]/[bundle].
+
+
+    farmOS is an open-source farm management and record-keeping system built on
+
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
+
+    '
+  version: 2.x
+  contact:
+    name: farmOS Community
+    url: https://farmos.org/community/
+  license:
+    name: GNU General Public License v2.0
+    url: https://github.com/farmOS/farmOS/blob/main/LICENSE.txt
+  termsOfService: https://farmos.org/
+servers:
+- url: https://{farmOS-host}/api
+  description: Self-hosted farmOS instance
+  variables:
+    farmOS-host:
+      default: example.farmos.net
+      description: The hostname of your farmOS instance (self-hosted or Farmier-managed)
+security:
+- oauth2AuthorizationCode:
+  - farm_manager
+- oauth2ClientCredentials:
+  - farm_manager
+tags:
+- name: Taxonomy
+  description: Taxonomy term resources (categories, types, units)
+paths:
+  /taxonomy_term/plant_type:
+    get:
+      operationId: listPlantTypes
+      summary: List plant type taxonomy terms
+      tags:
+      - Taxonomy
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      responses:
+        '200':
+          description: A collection of plant type taxonomy terms
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /taxonomy_term/animal_type:
+    get:
+      operationId: listAnimalTypes
+      summary: List animal type taxonomy terms
+      tags:
+      - Taxonomy
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      responses:
+        '200':
+          description: A collection of animal type taxonomy terms
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /taxonomy_term/log_category:
+    get:
+      operationId: listLogCategories
+      summary: List log category taxonomy terms
+      tags:
+      - Taxonomy
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      responses:
+        '200':
+          description: A collection of log category taxonomy terms
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /taxonomy_term/unit:
+    get:
+      operationId: listUnits
+      summary: List unit taxonomy terms
+      tags:
+      - Taxonomy
+      parameters:
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/PageOffset'
+      responses:
+        '200':
+          description: A collection of unit taxonomy terms
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyCollection'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    TaxonomyCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyTermData'
+        links:
+          type: object
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+    TaxonomyTermData:
+      type: object
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermAttributes'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    TaxonomyTermAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Taxonomy term name
+        description:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+        weight:
+          type: integer
+        drupal_internal__tid:
+          type: integer
+          readOnly: true
+    JsonApiError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+  parameters:
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    PageSize:
+      name: page[limit]
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+  securitySchemes:
+    oauth2AuthorizationCode:
+      type: oauth2
+      description: 'OAuth2 Authorization Code grant for third-party integrations. Users
+
+        authorize the client application to access their farmOS data.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+    oauth2ClientCredentials:
+      type: oauth2
+      description: 'OAuth2 Client Credentials grant for machine-to-machine authentication.
+
+        Used when no user account is required.
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+externalDocs:
+  description: farmOS API Documentation
+  url: https://farmos.org/development/api/

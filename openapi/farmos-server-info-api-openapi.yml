@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: 'farmOS JSON: Assets Server Info API'
+  description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
+
+    It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
+
+    resource identifiers. The root endpoint at /api returns server metadata and
+
+    available resource types. Resource endpoints follow the pattern
+
+    /api/[entity-type]/[bundle].
+
+
+    farmOS is an open-source farm management and record-keeping system built on
+
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
+
+    '
+  version: 2.x
+  contact:
+    name: farmOS Community
+    url: https://farmos.org/community/
+  license:
+    name: GNU General Public License v2.0
+    url: https://github.com/farmOS/farmOS/blob/main/LICENSE.txt
+  termsOfService: https://farmos.org/
+servers:
+- url: https://{farmOS-host}/api
+  description: Self-hosted farmOS instance
+  variables:
+    farmOS-host:
+      default: example.farmos.net
+      description: The hostname of your farmOS instance (self-hosted or Farmier-managed)
+security:
+- oauth2AuthorizationCode:
+  - farm_manager
+- oauth2ClientCredentials:
+  - farm_manager
+tags:
+- name: Server Info
+  description: Server metadata and available resource types
+paths:
+  /:
+    get:
+      operationId: getServerInfo
+      summary: Get server metadata
+      description: 'Returns metadata about the farmOS server, including authenticated user
+
+        information, farm details (name, URL, version, measurement system), and
+
+        available resource types with their endpoint URLs.
+
+        '
+      tags:
+      - Server Info
+      responses:
+        '200':
+          description: Server metadata
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ServerInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    ServerInfo:
+      type: object
+      description: farmOS server metadata
+      properties:
+        meta:
+          type: object
+          properties:
+            links:
+              type: object
+              description: Available resource type endpoints
+              additionalProperties:
+                type: object
+                properties:
+                  href:
+                    type: string
+                    format: uri
+            farm:
+              type: object
+              description: Farm details
+              properties:
+                name:
+                  type: string
+                  description: Farm name
+                url:
+                  type: string
+                  format: uri
+                  description: Farm URL
+                version:
+                  type: string
+                  description: farmOS version string
+                system_of_measurement:
+                  type: string
+                  enum:
+                  - metric
+                  - us
+                  description: Measurement system
+            user:
+              type: object
+              description: Authenticated user details
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+    JsonApiError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+  securitySchemes:
+    oauth2AuthorizationCode:
+      type: oauth2
+      description: 'OAuth2 Authorization Code grant for third-party integrations. Users
+
+        authorize the client application to access their farmOS data.
+
+        '
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+    oauth2ClientCredentials:
+      type: oauth2
+      description: 'OAuth2 Client Credentials grant for machine-to-machine authentication.
+
+        Used when no user account is required.
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes:
+            farm_manager: Full management access to the farm
+            farm_worker: Worker-level access to farm records
+            farm_viewer: Read-only access to farm records
+externalDocs:
+  description: farmOS API Documentation
+  url: https://farmos.org/development/api/
