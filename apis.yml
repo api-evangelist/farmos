@@ -5,7 +5,20 @@ description: Open-source farm management and record-keeping system with a JSON:A
   deployments and managed hosting via Farmier. Authentication uses OAuth2 with Authorization
   Code, Password Credentials, and Client Credentials grant types.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/farmos.png
 url: https://raw.githubusercontent.com/api-evangelist/farmos/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -19,40 +32,138 @@ tags:
   - Self-Hosted
   - Drupal
 apis:
-  - aid: farmos:farmos-api
-    name: farmOS JSON:API
-    description: The farmOS JSON:API provides access to farm assets, logs, plans,
-      and records. Follows the JSON:API specification with UUID-based resource identifiers.
-      The root endpoint at /api returns server metadata and available resource types.
-      Resource endpoints follow the pattern /api/[entity-type]/[bundle].
-    humanURL: https://farmos.org/development/api/
-    baseURL: https://{farmOS-host}/api
-    tags:
-      - Agriculture
-      - Farm Management
-      - JSON:API
-      - Assets
-      - Logs
-      - Plans
-    properties:
-      - type: Documentation
-        url: https://farmos.org/development/api/
-      - type: Authentication
-        url: https://farmos.org/development/api/authentication/
-      - type: APIChanges
-        url: https://farmos.org/development/api/changes/
-      - type: JavaScriptSDK
-        url: https://farmos.org/development/farmos-js/
-      - type: PythonSDK
-        url: https://farmos.org/development/farmos-py/
-      - type: GitHubRepository
-        url: https://github.com/farmOS/farmOS
-      - type: OpenAPI
-        url: openapi/farmos-farmos-api-openapi.yml
-    contact:
-      - FN: farmOS Community
-        url: https://farmos.org/community/
-        email: ''
+- aid: farmos:farmos-assets-api
+  name: farmOS Assets API
+  description: Physical or logical farm assets (land, animals, equipment, plants, etc.)
+  humanURL: https://farmos.org/development/api/
+  baseURL: https://{farmOS-host}/api
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/farmos-assets-api-openapi.yml
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: Authentication
+    url: https://farmos.org/development/api/authentication/
+  - type: APIChanges
+    url: https://farmos.org/development/api/changes/
+  - type: JavaScriptSDK
+    url: https://farmos.org/development/farmos-js/
+  - type: PythonSDK
+    url: https://farmos.org/development/farmos-py/
+  - type: GitHubRepository
+    url: https://github.com/farmOS/farmOS
+- aid: farmos:farmos-logs-api
+  name: farmOS Logs API
+  description: Farm activity records (activities, observations, inputs, harvests, etc.)
+  humanURL: https://farmos.org/development/api/
+  baseURL: https://{farmOS-host}/api
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/farmos-logs-api-openapi.yml
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: Authentication
+    url: https://farmos.org/development/api/authentication/
+  - type: APIChanges
+    url: https://farmos.org/development/api/changes/
+  - type: JavaScriptSDK
+    url: https://farmos.org/development/farmos-js/
+  - type: PythonSDK
+    url: https://farmos.org/development/farmos-py/
+  - type: GitHubRepository
+    url: https://github.com/farmOS/farmOS
+- aid: farmos:farmos-plans-api
+  name: farmOS Plans API
+  description: Farm planning records
+  humanURL: https://farmos.org/development/api/
+  baseURL: https://{farmOS-host}/api
+  tags:
+  - Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/farmos-plans-api-openapi.yml
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: Authentication
+    url: https://farmos.org/development/api/authentication/
+  - type: APIChanges
+    url: https://farmos.org/development/api/changes/
+  - type: JavaScriptSDK
+    url: https://farmos.org/development/farmos-js/
+  - type: PythonSDK
+    url: https://farmos.org/development/farmos-py/
+  - type: GitHubRepository
+    url: https://github.com/farmOS/farmOS
+- aid: farmos:farmos-quantities-api
+  name: farmOS Quantities API
+  description: Measurement quantities associated with logs
+  humanURL: https://farmos.org/development/api/
+  baseURL: https://{farmOS-host}/api
+  tags:
+  - Quantities
+  properties:
+  - type: OpenAPI
+    url: openapi/farmos-quantities-api-openapi.yml
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: Authentication
+    url: https://farmos.org/development/api/authentication/
+  - type: APIChanges
+    url: https://farmos.org/development/api/changes/
+  - type: JavaScriptSDK
+    url: https://farmos.org/development/farmos-js/
+  - type: PythonSDK
+    url: https://farmos.org/development/farmos-py/
+  - type: GitHubRepository
+    url: https://github.com/farmOS/farmOS
+- aid: farmos:farmos-server-info-api
+  name: farmOS Server Info API
+  description: Server metadata and available resource types
+  humanURL: https://farmos.org/development/api/
+  baseURL: https://{farmOS-host}/api
+  tags:
+  - Server Info
+  properties:
+  - type: OpenAPI
+    url: openapi/farmos-server-info-api-openapi.yml
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: Authentication
+    url: https://farmos.org/development/api/authentication/
+  - type: APIChanges
+    url: https://farmos.org/development/api/changes/
+  - type: JavaScriptSDK
+    url: https://farmos.org/development/farmos-js/
+  - type: PythonSDK
+    url: https://farmos.org/development/farmos-py/
+  - type: GitHubRepository
+    url: https://github.com/farmOS/farmOS
+- aid: farmos:farmos-taxonomy-api
+  name: farmOS Taxonomy API
+  description: Taxonomy term resources (categories, types, units)
+  humanURL: https://farmos.org/development/api/
+  baseURL: https://{farmOS-host}/api
+  tags:
+  - Taxonomy
+  properties:
+  - type: OpenAPI
+    url: openapi/farmos-taxonomy-api-openapi.yml
+  - type: Documentation
+    url: https://farmos.org/development/api/
+  - type: Authentication
+    url: https://farmos.org/development/api/authentication/
+  - type: APIChanges
+    url: https://farmos.org/development/api/changes/
+  - type: JavaScriptSDK
+    url: https://farmos.org/development/farmos-js/
+  - type: PythonSDK
+    url: https://farmos.org/development/farmos-py/
+  - type: GitHubRepository
+    url: https://github.com/farmOS/farmOS
 common:
   - type: AgenticAccess
     url: agentic-access/farmos-agentic-access.yml
