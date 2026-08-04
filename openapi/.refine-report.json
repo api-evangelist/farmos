@@ -1,0 +1,24 @@
+{
+  "provider": "farmos",
+  "sources": [
+    "farmos-assets-api-openapi.yml",
+    "farmos-logs-api-openapi.yml",
+    "farmos-plans-api-openapi.yml",
+    "farmos-quantities-api-openapi.yml",
+    "farmos-server-info-api-openapi.yml",
+    "farmos-taxonomy-api-openapi.yml"
+  ],
+  "outputs": [
+    "farmos-assets-api-openapi.yml",
+    "farmos-logs-api-openapi.yml",
+    "farmos-plans-api-openapi.yml",
+    "farmos-quantities-api-openapi.yml",
+    "farmos-server-info-api-openapi.yml",
+    "farmos-taxonomy-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
