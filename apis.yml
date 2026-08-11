@@ -165,6 +165,17 @@ apis:
   - type: GitHubRepository
     url: https://github.com/farmOS/farmOS
 common:
+  - type: IssueTracker
+    url: https://github.com/farmOS/farmOS/issues
+  - type: Releases
+    url: https://github.com/farmOS/farmOS/releases
+  - type: CodeOfConduct
+    url: https://github.com/farmOS/farmOS/blob/4.x/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/farmOS/.github/blob/main/CONTRIBUTING.md
+  - type: License
+    name: GPL-2.0
+    url: https://github.com/farmOS/farmOS/blob/4.x/LICENSE
   - type: AgenticAccess
     url: agentic-access/farmos-agentic-access.yml
   - type: DomainSecurity
