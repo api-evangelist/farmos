@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "farmOS JSON: Assets Server Info API",
+    "version": "2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "/oauth/authorize",
+      "accessTokenUrl": "/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Server Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get server metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/"
+          },
+          "docs": "Returns metadata about the farmOS server, including authenticated user\ninformation, farm details (name, URL, version, measurement system), and\navailable resource types with their endpoint URLs.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

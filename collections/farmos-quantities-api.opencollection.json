@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "farmOS JSON: Assets Quantities API",
+    "version": "2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "/oauth/authorize",
+      "accessTokenUrl": "/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quantities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List standard quantities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/quantity/standard",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Measurement quantities associated with logs."
+        },
+        {
+          "info": {
+            "name": "Create a standard quantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/quantity/standard",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a standard quantity"
+        },
+        {
+          "info": {
+            "name": "Get a standard quantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/quantity/standard/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a standard quantity"
+        },
+        {
+          "info": {
+            "name": "Update a standard quantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/quantity/standard/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a standard quantity"
+        },
+        {
+          "info": {
+            "name": "Delete a standard quantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/quantity/standard/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a standard quantity"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

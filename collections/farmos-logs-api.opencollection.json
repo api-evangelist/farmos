@@ -1,0 +1,1220 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "farmOS JSON: Assets Logs API",
+    "version": "2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "/oauth/authorize",
+      "accessTokenUrl": "/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List activity logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/activity",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Returns a collection of activity logs (general catch-all log type)."
+        },
+        {
+          "info": {
+            "name": "Create an activity log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/activity",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an activity log"
+        },
+        {
+          "info": {
+            "name": "Get an activity log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/activity/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get an activity log"
+        },
+        {
+          "info": {
+            "name": "Update an activity log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/activity/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an activity log"
+        },
+        {
+          "info": {
+            "name": "Delete an activity log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/activity/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete an activity log"
+        },
+        {
+          "info": {
+            "name": "List observation logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/observation",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List observation logs"
+        },
+        {
+          "info": {
+            "name": "Create an observation log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/observation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an observation log"
+        },
+        {
+          "info": {
+            "name": "Get an observation log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/observation/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get an observation log"
+        },
+        {
+          "info": {
+            "name": "Update an observation log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/observation/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an observation log"
+        },
+        {
+          "info": {
+            "name": "Delete an observation log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/observation/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete an observation log"
+        },
+        {
+          "info": {
+            "name": "List input logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/input",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Records of resources put into farm assets (e.g., fertilizer, feed)."
+        },
+        {
+          "info": {
+            "name": "Create an input log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/input",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an input log"
+        },
+        {
+          "info": {
+            "name": "Get an input log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/input/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get an input log"
+        },
+        {
+          "info": {
+            "name": "Update an input log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/input/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an input log"
+        },
+        {
+          "info": {
+            "name": "Delete an input log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/input/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete an input log"
+        },
+        {
+          "info": {
+            "name": "List harvest logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/harvest",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List harvest logs"
+        },
+        {
+          "info": {
+            "name": "Create a harvest log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/harvest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a harvest log"
+        },
+        {
+          "info": {
+            "name": "Get a harvest log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/harvest/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a harvest log"
+        },
+        {
+          "info": {
+            "name": "Update a harvest log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/harvest/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a harvest log"
+        },
+        {
+          "info": {
+            "name": "Delete a harvest log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/harvest/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a harvest log"
+        },
+        {
+          "info": {
+            "name": "List seeding logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/seeding",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List seeding logs"
+        },
+        {
+          "info": {
+            "name": "Create a seeding log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/seeding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a seeding log"
+        },
+        {
+          "info": {
+            "name": "Get a seeding log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/seeding/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a seeding log"
+        },
+        {
+          "info": {
+            "name": "Update a seeding log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/seeding/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a seeding log"
+        },
+        {
+          "info": {
+            "name": "Delete a seeding log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/seeding/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a seeding log"
+        },
+        {
+          "info": {
+            "name": "List transplanting logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/transplanting",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List transplanting logs"
+        },
+        {
+          "info": {
+            "name": "Create a transplanting log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/transplanting",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a transplanting log"
+        },
+        {
+          "info": {
+            "name": "Get a transplanting log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/transplanting/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a transplanting log"
+        },
+        {
+          "info": {
+            "name": "Update a transplanting log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/transplanting/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a transplanting log"
+        },
+        {
+          "info": {
+            "name": "Delete a transplanting log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/transplanting/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a transplanting log"
+        },
+        {
+          "info": {
+            "name": "List maintenance logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/maintenance",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List maintenance logs"
+        },
+        {
+          "info": {
+            "name": "Create a maintenance log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/maintenance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a maintenance log"
+        },
+        {
+          "info": {
+            "name": "Get a maintenance log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/maintenance/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a maintenance log"
+        },
+        {
+          "info": {
+            "name": "Update a maintenance log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/maintenance/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a maintenance log"
+        },
+        {
+          "info": {
+            "name": "Delete a maintenance log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/maintenance/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a maintenance log"
+        },
+        {
+          "info": {
+            "name": "List medical logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/medical",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Animal health records, veterinary visits, and medical procedures."
+        },
+        {
+          "info": {
+            "name": "Create a medical log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/medical",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a medical log"
+        },
+        {
+          "info": {
+            "name": "Get a medical log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/medical/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a medical log"
+        },
+        {
+          "info": {
+            "name": "Update a medical log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/medical/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a medical log"
+        },
+        {
+          "info": {
+            "name": "Delete a medical log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/medical/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a medical log"
+        },
+        {
+          "info": {
+            "name": "List birth logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/birth",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Animal birth records."
+        },
+        {
+          "info": {
+            "name": "Create a birth log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/birth",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a birth log"
+        },
+        {
+          "info": {
+            "name": "Get a birth log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/birth/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a birth log"
+        },
+        {
+          "info": {
+            "name": "Update a birth log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/birth/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a birth log"
+        },
+        {
+          "info": {
+            "name": "Delete a birth log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/birth/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a birth log"
+        },
+        {
+          "info": {
+            "name": "List lab test logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/lab_test",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Sample analysis results with measurement data and file attachments."
+        },
+        {
+          "info": {
+            "name": "Create a lab test log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/log/lab_test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a lab test log"
+        },
+        {
+          "info": {
+            "name": "Get a lab test log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/log/lab_test/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a lab test log"
+        },
+        {
+          "info": {
+            "name": "Update a lab test log",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/log/lab_test/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a lab test log"
+        },
+        {
+          "info": {
+            "name": "Delete a lab test log",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/log/lab_test/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a lab test log"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

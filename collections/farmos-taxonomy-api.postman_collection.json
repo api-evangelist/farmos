@@ -1,0 +1,754 @@
+{
+  "item": [
+    {
+      "id": "b996a559-adef-45f8-9bdd-7baffca9de0f",
+      "name": "Taxonomy",
+      "description": {
+        "content": "Taxonomy term resources (categories, types, units)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0c92e092-43db-4ce3-a74f-8b0e05cc2425",
+          "name": "List plant type taxonomy terms",
+          "request": {
+            "name": "List plant type taxonomy terms",
+            "description": {},
+            "url": {
+              "path": [
+                "taxonomy_term",
+                "plant_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                  "type": "any",
+                  "value": "{{farmOS-host}}",
+                  "key": "farmOS-host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "912f0ac9-2ba5-48d1-83ea-f827f04e5889",
+              "name": "A collection of plant type taxonomy terms",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "plant_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"df2b7661-f94c-131b-5171-67e1c6c33648\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 9042,\n        \"drupal_internal__tid\": 1771\n      },\n      \"links\": {\n        \"self\": \"https://pxewRvYhogXAwzONMo.dgVIG7vIqckny\",\n        \"related\": \"https://UXhvUqcvreQwbqKQghKXi.sfwjsBukQc-sYp5WSr6hLCt\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"00012bd1-d1a1-45df-6f86-46f66987192e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 2117,\n        \"drupal_internal__tid\": 5608\n      },\n      \"links\": {\n        \"self\": \"http://HCNTOFIXPogeEMrQwQGZ.bwhfmsS2eQCuZ4kT1+6EUMKdB.o7b-rVNI\",\n        \"related\": \"https://MazMzltgVxNBqJTwGubaaXQlMtN.orhtK8+xAOoUpl4ROg67IXAhwgzkBmux8WCKArmEBAcbkJ-Ok\"\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 4415\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de46d668-5d8d-4a19-ac92-0423ce46dfb2",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "plant_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50edc8a9-4f3b-485b-9c4f-984c71e6c68a",
+          "name": "List animal type taxonomy terms",
+          "request": {
+            "name": "List animal type taxonomy terms",
+            "description": {},
+            "url": {
+              "path": [
+                "taxonomy_term",
+                "animal_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                  "type": "any",
+                  "value": "{{farmOS-host}}",
+                  "key": "farmOS-host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e882d9d-8069-4ad7-be1c-01c59cc45882",
+              "name": "A collection of animal type taxonomy terms",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "animal_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"eee63c13-ca10-76e6-7970-0f9bc657eaca\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 8938,\n        \"drupal_internal__tid\": 7908\n      },\n      \"links\": {\n        \"self\": \"https://PNuPxoqtzEycZnYUNSzgFhehwdKySyD.lbAXB9lEF+Hfb87CTa5thTd3j0SX2t0TxXxi0T69I,\",\n        \"related\": \"https://LSEJfbNvBxAxyobDwtJgulNf.kgcTtk,VinboXDYzy\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"340c4692-6dfc-70a1-c4f4-ba5122423d2e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 4163,\n        \"drupal_internal__tid\": 772\n      },\n      \"links\": {\n        \"self\": \"http://FZmf.mywi.n3L+LEC5Tb2ZhQof8rCMwWfYHmZPzGw4jJRT4+kSeo9COELZlRJ4\",\n        \"related\": \"https://dx.yjJY\"\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 9167\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "160fdbbf-3c8f-4f06-934c-78236da0ceda",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "animal_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad580569-bda8-4c93-9044-c5c6debf0630",
+          "name": "List log category taxonomy terms",
+          "request": {
+            "name": "List log category taxonomy terms",
+            "description": {},
+            "url": {
+              "path": [
+                "taxonomy_term",
+                "log_category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                  "type": "any",
+                  "value": "{{farmOS-host}}",
+                  "key": "farmOS-host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "51ba922c-6fe2-4c6a-a42f-2649d80d1c6c",
+              "name": "A collection of log category taxonomy terms",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "log_category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"eee63c13-ca10-76e6-7970-0f9bc657eaca\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 8938,\n        \"drupal_internal__tid\": 7908\n      },\n      \"links\": {\n        \"self\": \"https://PNuPxoqtzEycZnYUNSzgFhehwdKySyD.lbAXB9lEF+Hfb87CTa5thTd3j0SX2t0TxXxi0T69I,\",\n        \"related\": \"https://LSEJfbNvBxAxyobDwtJgulNf.kgcTtk,VinboXDYzy\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"340c4692-6dfc-70a1-c4f4-ba5122423d2e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 4163,\n        \"drupal_internal__tid\": 772\n      },\n      \"links\": {\n        \"self\": \"http://FZmf.mywi.n3L+LEC5Tb2ZhQof8rCMwWfYHmZPzGw4jJRT4+kSeo9COELZlRJ4\",\n        \"related\": \"https://dx.yjJY\"\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 9167\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dea7e1c9-c821-4dd9-8fb3-754dfc13faff",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "log_category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfa19497-044c-4369-a57e-7ca49ea8b709",
+          "name": "List unit taxonomy terms",
+          "request": {
+            "name": "List unit taxonomy terms",
+            "description": {},
+            "url": {
+              "path": [
+                "taxonomy_term",
+                "unit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[offset]",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                  "type": "any",
+                  "value": "{{farmOS-host}}",
+                  "key": "farmOS-host"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59cef4b5-3891-492e-aa26-98d9d5a27800",
+              "name": "A collection of unit taxonomy terms",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "unit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"id\": \"eee63c13-ca10-76e6-7970-0f9bc657eaca\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 8938,\n        \"drupal_internal__tid\": 7908\n      },\n      \"links\": {\n        \"self\": \"https://PNuPxoqtzEycZnYUNSzgFhehwdKySyD.lbAXB9lEF+Hfb87CTa5thTd3j0SX2t0TxXxi0T69I,\",\n        \"related\": \"https://LSEJfbNvBxAxyobDwtJgulNf.kgcTtk,VinboXDYzy\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"id\": \"340c4692-6dfc-70a1-c4f4-ba5122423d2e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": {\n          \"value\": \"string\",\n          \"format\": \"string\"\n        },\n        \"weight\": 4163,\n        \"drupal_internal__tid\": 772\n      },\n      \"links\": {\n        \"self\": \"http://FZmf.mywi.n3L+LEC5Tb2ZhQof8rCMwWfYHmZPzGw4jJRT4+kSeo9COELZlRJ4\",\n        \"related\": \"https://dx.yjJY\"\n      }\n    }\n  ],\n  \"links\": {},\n  \"meta\": {\n    \"count\": 9167\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "554ed351-2ec1-4e09-82c8-f6bad0ea46a4",
+              "name": "Authentication required or token expired",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy_term",
+                    "unit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[limit]",
+                      "value": "50"
+                    },
+                    {
+                      "key": "page[offset]",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+                      "type": "any",
+                      "value": "{{farmOS-host}}",
+                      "key": "farmOS-host"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    },\n    {\n      \"status\": \"string\",\n      \"title\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The hostname of your farmOS instance (self-hosted or Farmier-managed)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "example.farmos.net",
+      "key": "farmOS-host"
+    },
+    {
+      "type": "string",
+      "value": "https://{{farmOS-host}}/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "farm_manager farm_worker farm_viewer"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "/oauth/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "/oauth/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f39526d9-910a-4b33-84e4-a94134fc3ca5",
+    "name": "farmOS JSON: Assets Taxonomy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The farmOS JSON:API provides access to farm assets, logs, plans, and records.\nIt follows the JSON:API specification (https://jsonapi.org/) with UUID-based\nresource identifiers. The root endpoint at /api returns server metadata and\navailable resource types. Resource endpoints follow the pattern\n/api/[entity-type]/[bundle].\n\nfarmOS is an open-source farm management and record-keeping system built on\nDrupal. It supports self-hosted deployments and managed hosting via Farmier.\n\n\nContact Support:\n Name: farmOS Community",
+      "type": "text/plain"
+    }
+  }
+}

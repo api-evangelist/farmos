@@ -1,0 +1,863 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "farmOS JSON: Assets API",
+    "version": "2.x"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "/oauth/authorize",
+      "accessTokenUrl": "/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List animal assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/animal",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Returns a collection of animal assets."
+        },
+        {
+          "info": {
+            "name": "Create an animal asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/animal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an animal asset"
+        },
+        {
+          "info": {
+            "name": "Get an animal asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/animal/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get an animal asset"
+        },
+        {
+          "info": {
+            "name": "Update an animal asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/animal/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an animal asset"
+        },
+        {
+          "info": {
+            "name": "Delete an animal asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/animal/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete an animal asset"
+        },
+        {
+          "info": {
+            "name": "List land assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/land",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "Returns a collection of land assets (fields, beds, paddocks, etc.)."
+        },
+        {
+          "info": {
+            "name": "Create a land asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/land",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a land asset"
+        },
+        {
+          "info": {
+            "name": "Get a land asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/land/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a land asset"
+        },
+        {
+          "info": {
+            "name": "Update a land asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/land/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a land asset"
+        },
+        {
+          "info": {
+            "name": "Delete a land asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/land/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a land asset"
+        },
+        {
+          "info": {
+            "name": "List plant assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/plant",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List plant assets"
+        },
+        {
+          "info": {
+            "name": "Create a plant asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/plant",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a plant asset"
+        },
+        {
+          "info": {
+            "name": "Get a plant asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/plant/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a plant asset"
+        },
+        {
+          "info": {
+            "name": "Update a plant asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/plant/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a plant asset"
+        },
+        {
+          "info": {
+            "name": "Delete a plant asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/plant/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a plant asset"
+        },
+        {
+          "info": {
+            "name": "List equipment assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/equipment",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List equipment assets"
+        },
+        {
+          "info": {
+            "name": "Create an equipment asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/equipment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an equipment asset"
+        },
+        {
+          "info": {
+            "name": "Get an equipment asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/equipment/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get an equipment asset"
+        },
+        {
+          "info": {
+            "name": "Update an equipment asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/equipment/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an equipment asset"
+        },
+        {
+          "info": {
+            "name": "Delete an equipment asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/equipment/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete an equipment asset"
+        },
+        {
+          "info": {
+            "name": "List structure assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/structure",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List structure assets"
+        },
+        {
+          "info": {
+            "name": "Create a structure asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/structure",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a structure asset"
+        },
+        {
+          "info": {
+            "name": "Get a structure asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/structure/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a structure asset"
+        },
+        {
+          "info": {
+            "name": "Update a structure asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/structure/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a structure asset"
+        },
+        {
+          "info": {
+            "name": "Delete a structure asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/structure/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a structure asset"
+        },
+        {
+          "info": {
+            "name": "List sensor assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/sensor",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List sensor assets"
+        },
+        {
+          "info": {
+            "name": "Create a sensor asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/sensor",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a sensor asset"
+        },
+        {
+          "info": {
+            "name": "Get a sensor asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/sensor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a sensor asset"
+        },
+        {
+          "info": {
+            "name": "Update a sensor asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/sensor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a sensor asset"
+        },
+        {
+          "info": {
+            "name": "Delete a sensor asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/sensor/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a sensor asset"
+        },
+        {
+          "info": {
+            "name": "List group assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/group",
+            "params": [
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page[offset]",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "filter[field]",
+                "value": "",
+                "type": "query",
+                "description": "JSON:API filter parameter. Use dot notation for nested fields.\nExample: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=\n"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Prefix with - for descending.\nExample: sort=-timestamp,name\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of related resources to include in the response.\nExample: include=asset,quantity\n"
+              }
+            ]
+          },
+          "docs": "List group assets"
+        },
+        {
+          "info": {
+            "name": "Create a group asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{farmOS-host}/api/asset/group",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a group asset"
+        },
+        {
+          "info": {
+            "name": "Get a group asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{farmOS-host}/api/asset/group/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Get a group asset"
+        },
+        {
+          "info": {
+            "name": "Update a group asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{farmOS-host}/api/asset/group/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a group asset"
+        },
+        {
+          "info": {
+            "name": "Delete a group asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{farmOS-host}/api/asset/group/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "3f1c2b4a-5d6e-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "UUID of the resource"
+              }
+            ]
+          },
+          "docs": "Delete a group asset"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
