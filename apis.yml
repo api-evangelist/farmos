@@ -26,6 +26,14 @@ specificationVersion: '0.23'
 tags:
   - Agriculture
   - Farm Management
+  - Open-Source
+  - JSON:API
+  - Recordkeeping
+  - Self-Hosted
+  - Drupal
+tags_raw:
+  - Agriculture
+  - Farm Management
   - Open Source
   - JSON:API
   - Record Keeping
