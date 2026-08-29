@@ -5,6 +5,20 @@ description: Open-source farm management and record-keeping system with a JSON:A
   deployments and managed hosting via Farmier. Authentication uses OAuth2 with Authorization
   Code, Password Credentials, and Client Credentials grant types.
 type: Index
+deliveryModel:
+  model: open-core
+  license: GPL-2.0
+  open_source: true
+  commercial: true
+  callable_host: false
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
