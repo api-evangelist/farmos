@@ -1,12 +1,7 @@
 {
   "provider": "farmos",
   "sources": [
-    "farmos-assets-api-openapi.yml",
-    "farmos-logs-api-openapi.yml",
-    "farmos-plans-api-openapi.yml",
-    "farmos-quantities-api-openapi.yml",
-    "farmos-server-info-api-openapi.yml",
-    "farmos-taxonomy-api-openapi.yml"
+    "_original/farmos-farmos-api-openapi.yml"
   ],
   "outputs": [
     "farmos-assets-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "farmos-farmos-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "farmos-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farmos-logs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farmos-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farmos-quantities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farmos-server-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "farmos-taxonomy-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

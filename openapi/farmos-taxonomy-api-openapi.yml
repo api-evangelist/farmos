@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: 'farmOS JSON: Assets Taxonomy API'
+  title: 'farmOS JSON: Taxonomy API'
   description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
 
     It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
@@ -14,9 +14,7 @@ info:
 
     farmOS is an open-source farm management and record-keeping system built on
 
-    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
-
-    '
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.'
   version: 2.x
   contact:
     name: farmOS Community
@@ -114,62 +112,32 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    PageSize:
+      name: page[limit]
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   schemas:
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-    TaxonomyCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyTermData'
-        links:
-          type: object
-        meta:
-          type: object
-          properties:
-            count:
-              type: integer
-    TaxonomyTermData:
-      type: object
-      properties:
-        type:
-          type: string
-          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermAttributes'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    TaxonomyTermAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Taxonomy term name
-        description:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-        weight:
-          type: integer
-        drupal_internal__tid:
-          type: integer
-          readOnly: true
     JsonApiError:
       type: object
       properties:
@@ -189,31 +157,61 @@ components:
                 properties:
                   pointer:
                     type: string
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-  parameters:
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    PageSize:
-      name: page[limit]
-      in: query
-      description: Number of results per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 50
+    TaxonomyCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyTermData'
+        links:
+          type: object
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    TaxonomyTermAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Taxonomy term name
+        description:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+        weight:
+          type: integer
+        drupal_internal__tid:
+          type: integer
+          readOnly: true
+    TaxonomyTermData:
+      type: object
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermAttributes'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

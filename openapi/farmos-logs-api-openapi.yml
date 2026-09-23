@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: 'farmOS JSON: Assets Logs API'
+  title: 'farmOS JSON: Logs API'
   description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
 
     It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
@@ -14,9 +14,7 @@ info:
 
     farmOS is an open-source farm management and record-keeping system built on
 
-    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
-
-    '
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.'
   version: 2.x
   contact:
     name: farmOS Community
@@ -1007,64 +1005,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    FilterField:
-      name: filter[field]
-      in: query
-      description: 'JSON:API filter parameter. Use dot notation for nested fields.
-
-        Example: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=
-
-        '
-      schema:
-        type: string
-    PageSize:
-      name: page[limit]
-      in: query
-      description: Number of results per page
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 50
-    IncludeRelated:
-      name: include
-      in: query
-      description: 'Comma-separated list of related resources to include in the response.
-
-        Example: include=asset,quantity
-
-        '
-      schema:
-        type: string
-    SortField:
-      name: sort
-      in: query
-      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
-
-        Example: sort=-timestamp,name
-
-        '
-      schema:
-        type: string
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      description: UUID of the resource
-      schema:
-        type: string
-        format: uuid
-      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
   schemas:
+    LogData:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., log--activity, log--harvest)
+          example: log--activity
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/LogAttributes'
+        relationships:
+          $ref: '#/components/schemas/LogRelationships'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
     JsonApiError:
       type: object
       properties:
@@ -1084,6 +1045,45 @@ components:
                 properties:
                   pointer:
                     type: string
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    LogRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/LogData'
+    JsonApiRelationship:
+      type: object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type: array
+            items:
+              $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type:
+            - object
+            - 'null'
+            maxProperties: 0
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiRelationshipData:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
     LogCollection:
       type: object
       properties:
@@ -1112,58 +1112,6 @@ components:
           properties:
             count:
               type: integer
-    JsonApiRelationship:
-      type: object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/JsonApiRelationshipData'
-          - type: array
-            items:
-              $ref: '#/components/schemas/JsonApiRelationshipData'
-          - nullable: true
-            type: object
-            maxProperties: 0
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    LogRelationships:
-      type: object
-      description: Common relationships shared by all log types
-      properties:
-        asset:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        location:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        category:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        owner:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        quantity:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        image:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        file:
-          $ref: '#/components/schemas/JsonApiRelationship'
-    LogData:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: JSON:API resource type (e.g., log--activity, log--harvest)
-          example: log--activity
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/LogAttributes'
-        relationships:
-          $ref: '#/components/schemas/LogRelationships'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
     LogAttributes:
       type: object
       description: Common attributes shared by all log types
@@ -1212,6 +1160,24 @@ components:
         changed:
           type: integer
           readOnly: true
+    LogRelationships:
+      type: object
+      description: Common relationships shared by all log types
+      properties:
+        asset:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        location:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        category:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        owner:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        quantity:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        image:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        file:
+          $ref: '#/components/schemas/JsonApiRelationship'
     LogResponse:
       type: object
       properties:
@@ -1223,31 +1189,13 @@ components:
             type: object
         links:
           $ref: '#/components/schemas/JsonApiLinks'
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-    JsonApiRelationshipData:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-    LogRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/LogData'
   responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
     NotFound:
       description: Resource not found
       content:
@@ -1260,12 +1208,63 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/JsonApiError'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
+  parameters:
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the resource
+      schema:
+        type: string
+        format: uuid
+      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
+    PageSize:
+      name: page[limit]
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    IncludeRelated:
+      name: include
+      in: query
+      description: 'Comma-separated list of related resources to include in the response.
+
+        Example: include=asset,quantity
+
+        '
+      schema:
+        type: string
+    FilterField:
+      name: filter[field]
+      in: query
+      description: 'JSON:API filter parameter. Use dot notation for nested fields.
+
+        Example: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=
+
+        '
+      schema:
+        type: string
+    SortField:
+      name: sort
+      in: query
+      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
+
+        Example: sort=-timestamp,name
+
+        '
+      schema:
+        type: string
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

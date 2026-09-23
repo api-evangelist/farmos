@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: 'farmOS JSON: Assets Server Info API'
+  title: 'farmOS JSON: Server Info API'
   description: 'The farmOS JSON:API provides access to farm assets, logs, plans, and records.
 
     It follows the JSON:API specification (https://jsonapi.org/) with UUID-based
@@ -14,9 +14,7 @@ info:
 
     farmOS is an open-source farm management and record-keeping system built on
 
-    Drupal. It supports self-hosted deployments and managed hosting via Farmier.
-
-    '
+    Drupal. It supports self-hosted deployments and managed hosting via Farmier.'
   version: 2.x
   contact:
     name: farmOS Community
@@ -49,9 +47,7 @@ paths:
 
         information, farm details (name, URL, version, measurement system), and
 
-        available resource types with their endpoint URLs.
-
-        '
+        available resource types with their endpoint URLs.'
       tags:
       - Server Info
       responses:
