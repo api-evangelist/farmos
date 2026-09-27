@@ -40,7 +40,7 @@ specificationVersion: '0.23'
 tags:
   - Agriculture
   - Farm Management
-  - Open-Source
+  - Open Source
   - JSON:API
   - Recordkeeping
   - Self-Hosted
@@ -53,6 +53,7 @@ tags_raw:
   - Record Keeping
   - Self-Hosted
   - Drupal
+  - Open-Source
 apis:
 - aid: farmos:farmos-assets-api
   name: farmOS Assets API
