@@ -113,6 +113,61 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    TaxonomyCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyTermData'
+        links:
+          type: object
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+    TaxonomyTermAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Taxonomy term name
+        description:
+          type: object
+          properties:
+            value:
+              type: string
+            format:
+              type: string
+        weight:
+          type: integer
+        drupal_internal__tid:
+          type: integer
+          readOnly: true
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    TaxonomyTermData:
+      type: object
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermAttributes'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
     JsonApiError:
       type: object
       properties:
@@ -132,68 +187,6 @@ components:
                 properties:
                   pointer:
                     type: string
-    TaxonomyTermData:
-      type: object
-      properties:
-        type:
-          type: string
-          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermAttributes'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    TaxonomyTermAttributes:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Taxonomy term name
-        description:
-          type: object
-          properties:
-            value:
-              type: string
-            format:
-              type: string
-        weight:
-          type: integer
-        drupal_internal__tid:
-          type: integer
-          readOnly: true
-    TaxonomyCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaxonomyTermData'
-        links:
-          type: object
-        meta:
-          type: object
-          properties:
-            count:
-              type: integer
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
   parameters:
     PageOffset:
       name: page[offset]
@@ -212,6 +205,13 @@ components:
         minimum: 1
         maximum: 50
         default: 50
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2
