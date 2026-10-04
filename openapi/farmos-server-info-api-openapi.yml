@@ -61,25 +61,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    JsonApiError:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              status:
-                type: string
-              title:
-                type: string
-              detail:
-                type: string
-              source:
-                type: object
-                properties:
-                  pointer:
-                    type: string
     ServerInfo:
       type: object
       description: farmOS server metadata
@@ -125,6 +106,25 @@ components:
                   format: uuid
                 type:
                   type: string
+    JsonApiError:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
   responses:
     Unauthorized:
       description: Authentication required or token expired

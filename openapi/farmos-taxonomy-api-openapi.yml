@@ -112,7 +112,28 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   schemas:
+    TaxonomyTermData:
+      type: object
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/TaxonomyTermAttributes'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
     TaxonomyCollection:
       type: object
       properties:
@@ -145,29 +166,6 @@ components:
         drupal_internal__tid:
           type: integer
           readOnly: true
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-    TaxonomyTermData:
-      type: object
-      properties:
-        type:
-          type: string
-          description: JSON:API resource type (e.g., taxonomy_term--plant_type)
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/TaxonomyTermAttributes'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
     JsonApiError:
       type: object
       properties:
@@ -187,15 +185,16 @@ components:
                 properties:
                   pointer:
                     type: string
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
   parameters:
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     PageSize:
       name: page[limit]
       in: query
@@ -205,13 +204,14 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

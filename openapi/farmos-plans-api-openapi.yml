@@ -138,14 +138,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     FilterField:
       name: filter[field]
       in: query
@@ -165,6 +157,15 @@ components:
         minimum: 1
         maximum: 50
         default: 50
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the resource
+      schema:
+        type: string
+        format: uuid
+      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
     IncludeRelated:
       name: include
       in: query
@@ -175,6 +176,14 @@ components:
         '
       schema:
         type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     SortField:
       name: sort
       in: query
@@ -185,51 +194,24 @@ components:
         '
       schema:
         type: string
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      description: UUID of the resource
-      schema:
-        type: string
-        format: uuid
-      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
   schemas:
-    PlanResponse:
+    PlanData:
       type: object
+      required:
+      - type
+      - attributes
       properties:
-        data:
-          $ref: '#/components/schemas/PlanData'
+        type:
+          type: string
+          example: plan--plan
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/PlanAttributes'
         links:
           $ref: '#/components/schemas/JsonApiLinks'
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-    JsonApiError:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              status:
-                type: string
-              title:
-                type: string
-              detail:
-                type: string
-              source:
-                type: object
-                properties:
-                  pointer:
-                    type: string
     PlanRequest:
       type: object
       required:
@@ -237,6 +219,13 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/PlanData'
+    PlanResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PlanData'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
     PlanAttributes:
       type: object
       properties:
@@ -275,26 +264,37 @@ components:
           properties:
             count:
               type: integer
-    PlanData:
+    JsonApiError:
       type: object
-      required:
-      - type
-      - attributes
       properties:
-        type:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              status:
+                type: string
+              title:
+                type: string
+              detail:
+                type: string
+              source:
+                type: object
+                properties:
+                  pointer:
+                    type: string
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
           type: string
-          example: plan--plan
-        id:
+          format: uri
+        related:
           type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/PlanAttributes'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
+          format: uri
   responses:
-    Unauthorized:
-      description: Authentication required or token expired
+    NotFound:
+      description: Resource not found
       content:
         application/vnd.api+json:
           schema:
@@ -305,8 +305,8 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/JsonApiError'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or token expired
       content:
         application/vnd.api+json:
           schema:
