@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: farmOS Plans and Pricing
 description: farmOS is open-source software available for self-hosting at no cost.
   Managed hosting is available through Farmier, a subscription hosting service founded
@@ -101,3 +105,35 @@ plans:
     support:
       - Priority support
       - Custom SLA available
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Self-Hosted
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Farmier Trial
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Farmier Standard
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Farmier Custom
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
