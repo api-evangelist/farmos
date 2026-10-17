@@ -715,13 +715,55 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    AssetRequest:
+    AssetResponse:
       type: object
-      required:
-      - data
       properties:
         data:
           $ref: '#/components/schemas/AssetData'
+        included:
+          type: array
+          items:
+            type: object
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    AssetCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetData'
+        included:
+          type: array
+          items:
+            type: object
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+              format: uri
+            next:
+              type: string
+              format: uri
+            prev:
+              type: string
+              format: uri
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+              description: Total number of matching resources
+    JsonApiLinks:
+      type: object
+      properties:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
     JsonApiRelationshipData:
       type: object
       properties:
@@ -810,67 +852,6 @@ components:
           type: integer
           description: Unix timestamp when the record was last modified
           readOnly: true
-    AssetRelationships:
-      type: object
-      description: Common relationships shared by all asset types
-      properties:
-        parent:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        location:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        image:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        file:
-          $ref: '#/components/schemas/JsonApiRelationship'
-    AssetResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/AssetData'
-        included:
-          type: array
-          items:
-            type: object
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-    AssetCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetData'
-        included:
-          type: array
-          items:
-            type: object
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-              format: uri
-            next:
-              type: string
-              format: uri
-            prev:
-              type: string
-              format: uri
-        meta:
-          type: object
-          properties:
-            count:
-              type: integer
-              description: Total number of matching resources
     JsonApiRelationship:
       type: object
       properties:
@@ -884,26 +865,6 @@ components:
             - object
             - 'null'
             maxProperties: 0
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    AssetData:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          description: JSON:API resource type (e.g., asset--animal, asset--land)
-          example: asset--animal
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/AssetAttributes'
-        relationships:
-          $ref: '#/components/schemas/AssetRelationships'
         links:
           $ref: '#/components/schemas/JsonApiLinks'
     JsonApiError:
@@ -925,25 +886,45 @@ components:
                 properties:
                   pointer:
                     type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
+    AssetRelationships:
+      type: object
+      description: Common relationships shared by all asset types
+      properties:
+        parent:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        location:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        image:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        file:
+          $ref: '#/components/schemas/JsonApiRelationship'
+    AssetRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/AssetData'
+    AssetData:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          description: JSON:API resource type (e.g., asset--animal, asset--land)
+          example: asset--animal
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/AssetAttributes'
+        relationships:
+          $ref: '#/components/schemas/AssetRelationships'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
   parameters:
     ResourceId:
       name: id
@@ -963,24 +944,6 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    SortField:
-      name: sort
-      in: query
-      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
-
-        Example: sort=-timestamp,name
-
-        '
-      schema:
-        type: string
     FilterField:
       name: filter[field]
       in: query
@@ -991,6 +954,24 @@ components:
         '
       schema:
         type: string
+    SortField:
+      name: sort
+      in: query
+      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
+
+        Example: sort=-timestamp,name
+
+        '
+      schema:
+        type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     IncludeRelated:
       name: include
       in: query
@@ -1001,6 +982,25 @@ components:
         '
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    NotFound:
+      description: Resource not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

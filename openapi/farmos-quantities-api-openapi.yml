@@ -138,28 +138,20 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    QuantityCollection:
+    QuantityRelationships:
+      type: object
+      properties:
+        units:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        inventory_asset:
+          $ref: '#/components/schemas/JsonApiRelationship'
+    QuantityResponse:
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuantityData'
+          $ref: '#/components/schemas/QuantityData'
         links:
-          type: object
-        meta:
-          type: object
-          properties:
-            count:
-              type: integer
-    JsonApiRelationshipData:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/JsonApiLinks'
     QuantityAttributes:
       type: object
       properties:
@@ -198,20 +190,59 @@ components:
           - increment
           - decrement
           - reset
-    QuantityRelationships:
+    JsonApiLinks:
       type: object
       properties:
-        units:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        inventory_asset:
-          $ref: '#/components/schemas/JsonApiRelationship'
-    QuantityResponse:
+        self:
+          type: string
+          format: uri
+        related:
+          type: string
+          format: uri
+    JsonApiRelationshipData:
       type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+    QuantityRequest:
+      type: object
+      required:
+      - data
       properties:
         data:
           $ref: '#/components/schemas/QuantityData'
+    JsonApiRelationship:
+      type: object
+      properties:
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type: array
+            items:
+              $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type:
+            - object
+            - 'null'
+            maxProperties: 0
         links:
           $ref: '#/components/schemas/JsonApiLinks'
+    QuantityCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuantityData'
+        links:
+          type: object
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
     QuantityData:
       type: object
       required:
@@ -229,37 +260,6 @@ components:
           $ref: '#/components/schemas/QuantityAttributes'
         relationships:
           $ref: '#/components/schemas/QuantityRelationships'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
-    QuantityRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/QuantityData'
-    JsonApiLinks:
-      type: object
-      properties:
-        self:
-          type: string
-          format: uri
-        related:
-          type: string
-          format: uri
-    JsonApiRelationship:
-      type: object
-      properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/JsonApiRelationshipData'
-          - type: array
-            items:
-              $ref: '#/components/schemas/JsonApiRelationshipData'
-          - type:
-            - object
-            - 'null'
-            maxProperties: 0
         links:
           $ref: '#/components/schemas/JsonApiLinks'
     JsonApiError:
@@ -281,25 +281,6 @@ components:
                 properties:
                   pointer:
                     type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
   parameters:
     ResourceId:
       name: id
@@ -319,24 +300,6 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    SortField:
-      name: sort
-      in: query
-      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
-
-        Example: sort=-timestamp,name
-
-        '
-      schema:
-        type: string
     FilterField:
       name: filter[field]
       in: query
@@ -347,6 +310,14 @@ components:
         '
       schema:
         type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     IncludeRelated:
       name: include
       in: query
@@ -357,6 +328,35 @@ components:
         '
       schema:
         type: string
+    SortField:
+      name: sort
+      in: query
+      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
+
+        Example: sort=-timestamp,name
+
+        '
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    NotFound:
+      description: Resource not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

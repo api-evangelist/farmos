@@ -1006,50 +1006,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    JsonApiRelationshipData:
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-    LogRequest:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          $ref: '#/components/schemas/LogData'
-    LogRelationships:
-      type: object
-      description: Common relationships shared by all log types
-      properties:
-        asset:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        location:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        category:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        owner:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        quantity:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        image:
-          $ref: '#/components/schemas/JsonApiRelationship'
-        file:
-          $ref: '#/components/schemas/JsonApiRelationship'
-    LogResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/LogData'
-        included:
-          type: array
-          items:
-            type: object
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
     LogAttributes:
       type: object
       description: Common attributes shared by all log types
@@ -1107,21 +1063,52 @@ components:
         related:
           type: string
           format: uri
-    JsonApiRelationship:
+    LogData:
       type: object
+      required:
+      - type
+      - attributes
       properties:
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/JsonApiRelationshipData'
-          - type: array
-            items:
-              $ref: '#/components/schemas/JsonApiRelationshipData'
-          - type:
-            - object
-            - 'null'
-            maxProperties: 0
+        type:
+          type: string
+          description: JSON:API resource type (e.g., log--activity, log--harvest)
+          example: log--activity
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/LogAttributes'
+        relationships:
+          $ref: '#/components/schemas/LogRelationships'
         links:
           $ref: '#/components/schemas/JsonApiLinks'
+    JsonApiRelationshipData:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+    LogRelationships:
+      type: object
+      description: Common relationships shared by all log types
+      properties:
+        asset:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        location:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        category:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        owner:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        quantity:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        image:
+          $ref: '#/components/schemas/JsonApiRelationship'
+        file:
+          $ref: '#/components/schemas/JsonApiRelationship'
     LogCollection:
       type: object
       properties:
@@ -1150,24 +1137,30 @@ components:
           properties:
             count:
               type: integer
-    LogData:
+    JsonApiRelationship:
       type: object
-      required:
-      - type
-      - attributes
       properties:
-        type:
-          type: string
-          description: JSON:API resource type (e.g., log--activity, log--harvest)
-          example: log--activity
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/LogAttributes'
-        relationships:
-          $ref: '#/components/schemas/LogRelationships'
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type: array
+            items:
+              $ref: '#/components/schemas/JsonApiRelationshipData'
+          - type:
+            - object
+            - 'null'
+            maxProperties: 0
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    LogResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/LogData'
+        included:
+          type: array
+          items:
+            type: object
         links:
           $ref: '#/components/schemas/JsonApiLinks'
     JsonApiError:
@@ -1189,25 +1182,13 @@ components:
                 properties:
                   pointer:
                     type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
+    LogRequest:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          $ref: '#/components/schemas/LogData'
   parameters:
     ResourceId:
       name: id
@@ -1227,24 +1208,6 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    SortField:
-      name: sort
-      in: query
-      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
-
-        Example: sort=-timestamp,name
-
-        '
-      schema:
-        type: string
     FilterField:
       name: filter[field]
       in: query
@@ -1255,6 +1218,14 @@ components:
         '
       schema:
         type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     IncludeRelated:
       name: include
       in: query
@@ -1265,6 +1236,35 @@ components:
         '
       schema:
         type: string
+    SortField:
+      name: sort
+      in: query
+      description: 'Comma-separated list of fields to sort by. Prefix with - for descending.
+
+        Example: sort=-timestamp,name
+
+        '
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    NotFound:
+      description: Resource not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

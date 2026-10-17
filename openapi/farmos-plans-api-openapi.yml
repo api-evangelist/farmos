@@ -137,6 +137,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    UnprocessableEntity:
+      description: Validation error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   parameters:
     FilterField:
       name: filter[field]
@@ -144,6 +163,33 @@ components:
       description: 'JSON:API filter parameter. Use dot notation for nested fields.
 
         Example: filter[status]=pending or filter[timestamp][value]=1234567890&filter[timestamp][operator]=>=
+
+        '
+      schema:
+        type: string
+    ResourceId:
+      name: id
+      in: path
+      required: true
+      description: UUID of the resource
+      schema:
+        type: string
+        format: uuid
+      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
+    PageOffset:
+      name: page[offset]
+      in: query
+      description: Offset for pagination
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    IncludeRelated:
+      name: include
+      in: query
+      description: 'Comma-separated list of related resources to include in the response.
+
+        Example: include=asset,quantity
 
         '
       schema:
@@ -157,33 +203,6 @@ components:
         minimum: 1
         maximum: 50
         default: 50
-    ResourceId:
-      name: id
-      in: path
-      required: true
-      description: UUID of the resource
-      schema:
-        type: string
-        format: uuid
-      example: 3f1c2b4a-5d6e-7890-abcd-ef1234567890
-    IncludeRelated:
-      name: include
-      in: query
-      description: 'Comma-separated list of related resources to include in the response.
-
-        Example: include=asset,quantity
-
-        '
-      schema:
-        type: string
-    PageOffset:
-      name: page[offset]
-      in: query
-      description: Offset for pagination
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     SortField:
       name: sort
       in: query
@@ -195,23 +214,6 @@ components:
       schema:
         type: string
   schemas:
-    PlanData:
-      type: object
-      required:
-      - type
-      - attributes
-      properties:
-        type:
-          type: string
-          example: plan--plan
-        id:
-          type: string
-          format: uuid
-          readOnly: true
-        attributes:
-          $ref: '#/components/schemas/PlanAttributes'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
     PlanRequest:
       type: object
       required:
@@ -219,13 +221,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/PlanData'
-    PlanResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/PlanData'
-        links:
-          $ref: '#/components/schemas/JsonApiLinks'
     PlanAttributes:
       type: object
       properties:
@@ -250,20 +245,6 @@ components:
         changed:
           type: integer
           readOnly: true
-    PlanCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlanData'
-        links:
-          type: object
-        meta:
-          type: object
-          properties:
-            count:
-              type: integer
     JsonApiError:
       type: object
       properties:
@@ -292,25 +273,44 @@ components:
         related:
           type: string
           format: uri
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    UnprocessableEntity:
-      description: Validation error
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
+    PlanCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanData'
+        links:
+          type: object
+        meta:
+          type: object
+          properties:
+            count:
+              type: integer
+    PlanResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PlanData'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
+    PlanData:
+      type: object
+      required:
+      - type
+      - attributes
+      properties:
+        type:
+          type: string
+          example: plan--plan
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        attributes:
+          $ref: '#/components/schemas/PlanAttributes'
+        links:
+          $ref: '#/components/schemas/JsonApiLinks'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2

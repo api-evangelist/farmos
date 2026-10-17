@@ -60,6 +60,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication required or token expired
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/JsonApiError'
   schemas:
     ServerInfo:
       type: object
@@ -125,13 +132,6 @@ components:
                 properties:
                   pointer:
                     type: string
-  responses:
-    Unauthorized:
-      description: Authentication required or token expired
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/JsonApiError'
   securitySchemes:
     oauth2AuthorizationCode:
       type: oauth2
