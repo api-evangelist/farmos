@@ -64,49 +64,167 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Open-source farm management and record-keeping system with a JSON:API-based REST API for managing assets, logs, plans, and farm records. Supports self-hosted deployments and managed hosting via Farmier.
+Open-source farm management and record-keeping system with a JSON:API-based REST API for managing assets, logs, plans, and farm records. Supports self-hosted deployments and managed hosting via Farmier. Authentication uses OAuth2 with Authorization Code, Password Credentials, and Client Credentials grant types.
 
-## API
+**Areas:** Agriculture · Farm Management · Open Source · JSON:API · Recordkeeping · Self-Hosted · Drupal
 
-farmOS exposes a JSON:API compliant REST API via the `farm_api` module. All endpoints use the `/api` path prefix and return JSON:API formatted responses with UUID-based resource identifiers.
+## farmOS on APIs.io
 
-- **Root endpoint:** `/api` — returns server metadata, farm details, version, and authenticated user info
-- **Schema endpoint:** `/api/schema` — JSON Schema graph of all available API resources
-- **Resource pattern:** `/api/[entity-type]/[bundle]` (e.g., `/api/log/activity`)
+Everything profiled for farmOS is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/farmos/](https://apis.io/providers/farmos/)** — or go straight to one of the APIs or properties below.
 
-## Authentication
+### APIs (6)
 
-OAuth2 with three supported grant types:
+- [farmOS Assets API](https://apis.io/apis/farmos/farmos-assets-api/) — Physical or logical farm assets (land, animals, equipment, plants, etc.)
+- [farmOS Logs API](https://apis.io/apis/farmos/farmos-logs-api/) — Farm activity records (activities, observations, inputs, harvests, etc.)
+- [farmOS Plans API](https://apis.io/apis/farmos/farmos-plans-api/) — Farm planning records
+- [farmOS Quantities API](https://apis.io/apis/farmos/farmos-quantities-api/) — Measurement quantities associated with logs
+- [farmOS Server Info API](https://apis.io/apis/farmos/farmos-server-info-api/) — Server metadata and available resource types
+- [farmOS Taxonomy API](https://apis.io/apis/farmos/farmos-taxonomy-api/) — Taxonomy term resources (categories, types, units)
 
-- **Authorization Code** — recommended for third-party integrations
-- **Password Credentials** — legacy, first-party use only
-- **Client Credentials** — machine-to-machine server integrations
+### Published properties
 
-Token endpoint: `/oauth/token`
-Bearer header: `Authorization: Bearer {access_token}`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-OAuth scopes: `farm_manager`, `farm_worker`, `farm_viewer`
+#### Agentic access (1)
 
-## SDKs
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **farmOS.js** — JavaScript/Node.js library: `npm install farmos` | [Docs](https://farmos.org/development/farmos-js/) | [GitHub](https://github.com/farmOS/farmOS.js)
-- **farmOS.py** — Python library: `pip install farmOS~=1.0.0b` | [Docs](https://farmos.org/development/farmos-py/) | [GitHub](https://github.com/farmOS/farmOS.py)
+- [Farmos Agentic Access](https://apis.io/agentic-access/farmos/farmos-agentic-access/)
 
-## Hosting
+#### JSON Schema (3)
 
-- **Self-hosted:** Free, runs on any LAMP/LEMP stack. See [installation docs](https://farmos.org/hosting/).
-- **Farmier managed hosting:** $75/year base, includes 1 GB storage. [farmier.com/pricing](https://farmier.com/pricing/)
+The data models the API reads and writes.
 
-## Links
+- [farmOS Asset](https://apis.io/schemas/farmos/farmos-asset/)
+- [farmOS Log](https://apis.io/schemas/farmos/farmos-log/)
+- [farmOS Quantity](https://apis.io/schemas/farmos/farmos-quantity/)
 
-- Website: https://farmos.org/
-- API Docs: https://farmos.org/development/api/
-- GitHub Org: https://github.com/farmOS
-- Blog: https://farmos.org/blog/
-- Forum: https://farmos.discourse.group/
-- Open Collective: https://opencollective.com/farmos
-- X: https://twitter.com/farmOSorg
+#### JSON-LD (1)
 
-## APIs.json
+Linked-data contexts for the provider's vocabulary.
 
-This repository contains an [APIs.json](apis.yml) index cataloging the farmOS API along with supporting files for plans, rate limits, and FinOps guidance.
+- [Farmos Context](https://apis.io/jsonld/farmos/farmos-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [farmOS API Vocabulary](https://apis.io/vocabularies/farmos/farmos-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Farmos Create Animal Asset Example](https://apis.io/examples/farmos/farmos-create-animal-asset-example/)
+- [Farmos Create Harvest Log Example](https://apis.io/examples/farmos/farmos-create-harvest-log-example/)
+- [Farmos List Assets With Filter Example](https://apis.io/examples/farmos/farmos-list-assets-with-filter-example/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [farmOS JSON: Assets API](https://apis.io/collections/farmos/open-farmos-assets-api/)
+- [farmOS JSON: Assets Logs API](https://apis.io/collections/farmos/open-farmos-logs-api/)
+- [farmOS JSON: Assets Plans API](https://apis.io/collections/farmos/open-farmos-plans-api/)
+- [farmOS JSON: Assets Quantities API](https://apis.io/collections/farmos/open-farmos-quantities-api/)
+- [farmOS JSON: Assets Server Info API](https://apis.io/collections/farmos/open-farmos-server-info-api/)
+- [farmOS JSON: Assets Taxonomy API](https://apis.io/collections/farmos/open-farmos-taxonomy-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [farmOS — jsonschema rules](https://apis.io/rules/farmos/farmos-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Farmos Authentication](https://apis.io/security/farmos/farmos-authentication/)
+- [Farmos Domain Security](https://apis.io/security/farmos/farmos-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Farmos Scopes](https://apis.io/scopes/farmos/farmos-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Farmos Plans Pricing](https://apis.io/plans/farmos/farmos-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Farmos Rate Limits](https://apis.io/rate-limits/farmos/farmos-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Farmos Finops](https://apis.io/finops/farmos/farmos-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://farmos.org/)
+- [Documentation](https://farmos.org/development/api/)
+- [Pricing](https://farmier.com/pricing/)
+- [Blog](https://farmos.org/blog/)
+
+## API Evangelist rating
+
+**Kin Score 38.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 56.5 |
+| Contract governance | 9.8 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 18.4 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/farmos/](https://apis.io/providers/farmos/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for farmOS: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/farmos/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
