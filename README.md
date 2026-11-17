@@ -64,7 +64,7 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Open-source farm management and record-keeping system with a JSON:API-based REST API for managing assets, logs, plans, and farm records. Supports self-hosted deployments and managed hosting via Farmier. Authentication uses OAuth2 with Authorization Code, Password Credentials, and Client Credentials grant types.
+farmOS is a web-based application for farm management, planning, and record keeping. Developed by a community of farmers, developers, researchers, and organizations, it provides a standard platform for agricultural data collection and management. Built on Drupal, it is modular, extensible, and secure, free and open source under the GNU GPL. The site offers hosting guides, contribution information, community forums, and a newsletter, reflecting its open‑source ethos and active community.
 
 **Areas:** Agriculture · Farm Management · Open Source · JSON:API · Recordkeeping · Self-Hosted · Drupal
 
@@ -89,15 +89,29 @@ Each property below is a page on APIs.io carrying the machine-readable artifact 
 
 Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Farmos Agentic Access](https://apis.io/agentic-access/farmos/farmos-agentic-access/)
+- [farmOS Agentic Access](https://apis.io/agentic-access/farmos/farmos-agentic-access/)
 
-#### JSON Schema (3)
+#### JSON Schema (17)
 
 The data models the API reads and writes.
 
 - [farmOS Asset](https://apis.io/schemas/farmos/farmos-asset/)
+- [AssetCollection](https://apis.io/schemas/farmos/farmos-asset-collection/)
+- [AssetRequest](https://apis.io/schemas/farmos/farmos-asset-request/)
+- [AssetResponse](https://apis.io/schemas/farmos/farmos-asset-response/)
 - [farmOS Log](https://apis.io/schemas/farmos/farmos-log/)
+- [LogCollection](https://apis.io/schemas/farmos/farmos-log-collection/)
+- [LogRequest](https://apis.io/schemas/farmos/farmos-log-request/)
+- [LogResponse](https://apis.io/schemas/farmos/farmos-log-response/)
+- [PlanCollection](https://apis.io/schemas/farmos/farmos-plan-collection/)
+- [PlanRequest](https://apis.io/schemas/farmos/farmos-plan-request/)
+- [PlanResponse](https://apis.io/schemas/farmos/farmos-plan-response/)
 - [farmOS Quantity](https://apis.io/schemas/farmos/farmos-quantity/)
+- [QuantityCollection](https://apis.io/schemas/farmos/farmos-quantity-collection/)
+- [QuantityRequest](https://apis.io/schemas/farmos/farmos-quantity-request/)
+- [QuantityResponse](https://apis.io/schemas/farmos/farmos-quantity-response/)
+- [ServerInfo](https://apis.io/schemas/farmos/farmos-server-info/)
+- [TaxonomyCollection](https://apis.io/schemas/farmos/farmos-taxonomy-collection/)
 
 #### JSON-LD (1)
 
@@ -115,9 +129,9 @@ The provider's domain terms, defined.
 
 Example requests and responses.
 
-- [Farmos Create Animal Asset Example](https://apis.io/examples/farmos/farmos-create-animal-asset-example/)
-- [Farmos Create Harvest Log Example](https://apis.io/examples/farmos/farmos-create-harvest-log-example/)
-- [Farmos List Assets With Filter Example](https://apis.io/examples/farmos/farmos-list-assets-with-filter-example/)
+- [farmOS Create Animal Asset Example](https://apis.io/examples/farmos/farmos-create-animal-asset-example/)
+- [farmOS Create Harvest Log Example](https://apis.io/examples/farmos/farmos-create-harvest-log-example/)
+- [farmOS List Assets With Filter Example](https://apis.io/examples/farmos/farmos-list-assets-with-filter-example/)
 
 #### Collections (6)
 
@@ -130,42 +144,49 @@ Postman and Open Collection request collections.
 - [farmOS JSON: Assets Server Info API](https://apis.io/collections/farmos/open-farmos-server-info-api/)
 - [farmOS JSON: Assets Taxonomy API](https://apis.io/collections/farmos/open-farmos-taxonomy-api/)
 
-#### Governance rules (1)
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [farmOS Assets Api Overlay](https://apis.io/overlays/farmos/farmos-assets-api-overlay/)
+
+#### Governance rules (2)
 
 Spectral rulesets for the provider's contracts.
 
 - [farmOS — jsonschema rules](https://apis.io/rules/farmos/farmos-jsonschema-spectral-rules/)
+- [farmOS API Rules](https://apis.io/rules/farmos/farmos-rules/)
 
 #### Security (2)
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [Farmos Authentication](https://apis.io/security/farmos/farmos-authentication/)
-- [Farmos Domain Security](https://apis.io/security/farmos/farmos-domain-security/)
+- [farmOS Authentication](https://apis.io/security/farmos/farmos-authentication/)
+- [farmOS Domain Security](https://apis.io/security/farmos/farmos-domain-security/)
 
 #### OAuth scopes (1)
 
 The permissions the API asks for.
 
-- [Farmos Scopes](https://apis.io/scopes/farmos/farmos-scopes/)
+- [farmOS Scopes](https://apis.io/scopes/farmos/farmos-scopes/)
 
 #### Plans and pricing (1)
 
 Published plans, tiers and prices.
 
-- [Farmos Plans Pricing](https://apis.io/plans/farmos/farmos-plans-pricing/)
+- [farmOS Plans Pricing](https://apis.io/plans/farmos/farmos-plans-pricing/)
 
 #### Rate limits (1)
 
 Published request limits.
 
-- [Farmos Rate Limits](https://apis.io/rate-limits/farmos/farmos-rate-limits/)
+- [farmOS Rate Limits](https://apis.io/rate-limits/farmos/farmos-rate-limits/)
 
 #### FinOps (1)
 
 What the API costs to run, by operation.
 
-- [Farmos Finops](https://apis.io/finops/farmos/farmos-finops/)
+- [farmOS Finops](https://apis.io/finops/farmos/farmos-finops/)
 
 ## Where to find this API
 
@@ -178,7 +199,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 38.2** — thin · rubric 0.24.0 · scored 2026-10-17
+**Kin Score 38.2** — thin · rubric 0.25.0 · scored 2026-10-23
 
 | Facet | Score |
 |---|---|
@@ -189,7 +210,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Developer ergonomics | 28.6 |
 | Access clarity | 18.4 |
 
-**Agent readiness 22.9** — agent-aware
+**Agent readiness 27.1** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -212,6 +233,8 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Protected Resource Metadata | — |
 | Dynamic Client Registration | — |
 | Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
 
 **Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
 
